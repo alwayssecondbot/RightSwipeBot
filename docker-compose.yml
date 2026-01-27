@@ -1,0 +1,40 @@
+services:
+  DB:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    restart: unless-stopped
+    networks:
+      - default
+#    network_mode: bridge
+    volumes:
+      - postgres_v:/var/lib/postgresql
+
+#  Broker:
+#    image: rabbitmq:latest
+#    container_name: rabbitmq
+#    hostname: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    restart: unless-stopped
+#    networks:
+#      - default
+##    network_mode: bridge
+#    volumes:
+#      - rabbit_v:/data
+
+volumes:
+  postgres_v:
+  rabbit_v:
+
+networks:
+  default:
+    driver: bridge
+    name: right-swipe-bot

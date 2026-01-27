@@ -1,0 +1,3 @@
+docker run -d --name postgre --hostname postgre -p 5432:5432 -e POSTGRES_USER=username -e POSTGRES_PASSWORD=password -e POSTGRES_DB=postgre -v '/C/Users/Ilya/postgres_date':/data --restart=unless-stopped postgres
+
+docker run -d --vname localtunnel  --hostname localtunnel --net host kaixhin/localtunnel 8084
