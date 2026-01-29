@@ -11,10 +11,9 @@ public class Brand {
 
     public String getBrandCountry(String type){
         return switch (type) {
-            case "name" -> brandCountry.getName();
             case "code" -> brandCountry.getNumeric();
             case "alpha" -> brandCountry.getAlpha3();
-            default -> brandCountry.name();
+            default -> brandCountry.getName();
         };
     }
 

@@ -1,16 +1,14 @@
 package ru.yanes;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 import java.util.Objects;
 import java.util.Properties;
+import java.sql.*;
 
 
 public class Postgres {
@@ -19,6 +17,7 @@ public class Postgres {
     private static String PASSWORD;
     private static String init_db;
     private static String populate_db;
+    private static String drop_db;
 
 
     Postgres() {
@@ -28,6 +27,9 @@ public class Postgres {
             )));
             populate_db = new String(Files.readAllBytes(Paths.get(
                     Objects.requireNonNull(getClass().getClassLoader().getResource("database\\populateDB.sql")).toURI()
+            )));
+            drop_db = new String(Files.readAllBytes(Paths.get(
+                    Objects.requireNonNull(getClass().getClassLoader().getResource("database\\dropDB.sql")).toURI()
             )));
             Properties properties = new Properties();
             properties.load(input);
@@ -41,16 +43,41 @@ public class Postgres {
     }
 
     public void initiateDB() {
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-            System.out.println("Database initiation...." + statement.executeUpdate(init_db));
+        System.out.println("Initiate database....");
+        try (Statement statement = getStatement()) {
+//            System.out.printf("Updates count in creation is: %d\n", statement.getUpdateCount());
+            if (!statement.execute(init_db) && statement.getUpdateCount() == 0){
+                System.out.println(" - Tables have been created successfully");
+            } else {
+                System.out.println(" - Something went wrong on table creation");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void populateDB() {
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-            System.out.printf("Database population....\n" + statement.executeUpdate(populate_db));
+        System.out.println("Fill database....");
+        try (Statement statement = getStatement()) {
+            statement.execute(populate_db);
+            if (statement.getUpdateCount() != 0) {
+                System.out.println(" - Tables have been filled successfully");
+            } else {
+                System.out.println(" - Something went wrong on table filling");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dropDB(){
+        System.out.println("Drop database....");
+        try (Statement statement = getStatement()) {
+            if (!statement.execute(drop_db) && statement.getUpdateCount() == 0) {
+                System.out.println(" - Tables have been dropped successfully");
+            } else {
+                System.out.println(" - Something went wrong on table dropping");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,5 +85,9 @@ public class Postgres {
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    private Statement getStatement() throws SQLException {
+        return getConnection().createStatement();
     }
 }

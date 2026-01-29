@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS countries
 (
-    code SMALLINT NOT NULL UNIQUE PRIMARY KEY,
+    code VARCHAR(3) NOT NULL UNIQUE PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     alpha2 VARCHAR(2) NOT NULL UNIQUE,
     alpha3 VARCHAR(3) NOT NULL UNIQUE,
 
     CONSTRAINT valid_alpha CHECK (LENGTH(alpha2) = 2 and LENGTH(alpha3) = 3),
-    CONSTRAINT valid_code CHECK (LENGTH(code) = 3),
+    CONSTRAINT valid_code CHECK (LENGTH(code) = 3 AND code ~* '^[0-9]{3}'),
     CONSTRAINT valid_name CHECK (LENGTH(name) BETWEEN 3 AND 200)
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS corporations
 (
     id SMALLSERIAL PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
-    country_code SMALLINT NOT NULL,
+    country_code VARCHAR(3) NOT NULL,
 
     CONSTRAINT fk_countries
         FOREIGN KEY (country_code)
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS brands
     id SMALLSERIAL PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL UNIQUE,
     short_name VARCHAR(25) NOT NULL UNIQUE,
-    country_code SMALLINT NOT NULL,
+    country_code VARCHAR(3) NOT NULL,
     owner_id SMALLINT NOT NULL,
 
     CONSTRAINT fk_countries

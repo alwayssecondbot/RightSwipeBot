@@ -2,5 +2,7 @@
 <project version="4">
   <component name="DataSourcePerFileMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/ru/yanes/Postgres.java" value="5e8cd423-1758-494f-ae6c-eff0029a31e5" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/database/dropDB.sql" value="5e8cd423-1758-494f-ae6c-eff0029a31e5" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/database/initDB.sql" value="5e8cd423-1758-494f-ae6c-eff0029a31e5" />
   </component>
 </project>
