@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.sql.*;
 
 
+//TODO перенести определение переменных в отдельную конфигурацию
 public class Postgres {
     private static String URL;
     private static String USER;
@@ -31,8 +32,10 @@ public class Postgres {
             drop_db = new String(Files.readAllBytes(Paths.get(
                     Objects.requireNonNull(getClass().getClassLoader().getResource("database\\dropDB.sql")).toURI()
             )));
+
             Properties properties = new Properties();
             properties.load(input);
+
             URL = properties.getProperty("database.url");
             USER = properties.getProperty("database.username");
             PASSWORD = properties.getProperty("database.password");

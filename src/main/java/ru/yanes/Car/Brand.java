@@ -1,4 +1,4 @@
-package ru.yanes;
+package ru.yanes.Car;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
