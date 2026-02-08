@@ -1,7 +1,6 @@
 package ru.yanes;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
 import java.util.Scanner;
 
 //TODO добавить логирование (перевести в аннотацию log)
@@ -18,24 +17,36 @@ class RightSwipeBot{
 //        }
 //        in.close();
 
-        Scanner scanner = new Scanner(System.in);
-        Postgres postgres = new Postgres();
+        try (Scanner scanner = new Scanner(System.in)) {
+            Postgres postgres = new Postgres();
 
-        System.out.print("Select action: 1 - create, 2 - drop: ");
-        short answer = scanner.nextShort();
-        switch (answer) {
-            case 1:
-                postgres.initiateDB();
-                postgres.populateDB();
-                break;
-            case 2:
-                postgres.dropDB();
-                break;
-            default:
-                System.out.printf("Variant '%d' doesn't exist", answer);
-                break;
+            System.out.print("Select action: 1 - create, 2 - drop: ");
+            short answer = scanner.nextShort();
+            switch (answer) {
+                case 1 -> {
+                    postgres.initiateDB();
+                    postgres.populateDB();
+                }
+                case 2 -> postgres.dropDB();
+                default -> throw new IllegalArgumentException("Variant '" + answer +"' doesn't exist");
+
+            }
+
+//            while (true) {
+//                System.out.println("""
+//                        What action you want to execute?
+//                        1. Add
+//                        2. Show
+//                        3. Delete
+//                        """);
+//                int action = scanner.nextShort();
+//                switch (action) {
+//                    case 1 ->
+//                }
+//            }
         }
     }
+
     private static void fixSystemOutEncoding() {
         System.setOut(new java.io.PrintStream(System.out, true, StandardCharsets.UTF_8));
         System.setErr(new java.io.PrintStream(System.err, true, StandardCharsets.UTF_8));

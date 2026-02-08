@@ -86,6 +86,36 @@ public class Postgres {
         }
     }
 
+    public void executeSql(String sql, String sqlType){
+
+        try (Statement statement = getStatement()) {
+            boolean result = statement.execute(sql);
+            switch (sqlType){
+                case "select" :{
+                    if (result && statement.getResultSet() != null ) {
+                        System.out.println("- Select complete");
+                    } else {
+                        System.out.println("- Smth went wrong");
+                    }
+                    break;
+                }
+                case "insert":
+                case "update":
+                case "delete": {
+                    if (!result && statement.getUpdateCount() != 0) {
+                        System.out.println("- Changes completed");
+                    } else {
+                        System.out.println("- Nothing to change");
+                    }
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
