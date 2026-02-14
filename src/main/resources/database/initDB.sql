@@ -49,7 +49,30 @@ CREATE TABLE IF NOT EXISTS brands
     CONSTRAINT valid_short_name CHECK (LENGTH(full_name) BETWEEN 2 AND 25)
 );
 
-CREATE INDEX idx_brands_country_codes ON brands(country_code);
-CREATE INDEX idx_brands_owners_id ON brands(owner_id);
+CREATE TABLE IF NOT EXISTS car_models
+(
+    id BIGSERIAL PRIMARY KEY,
+    model_name VARCHAR(200) NOT NULL,
+    brand_id SMALLINT NOT NULL,
+    assemble_country VARCHAR(3) NOT NULL,
+    assemble_date DATE NOT NULL,
+
+    CONSTRAINT fk_brands
+        FOREIGN KEY (brand_id)
+            REFERENCES brands(id)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+
+    CONSTRAINT fk_assemble_country
+        FOREIGN KEY (assemble_country)
+            REFERENCES countries(code)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_brands_country_codes ON brands(country_code);
+CREATE INDEX IF NOT EXISTS idx_brands_owners_id ON brands(owner_id);
+CREATE INDEX IF NOT EXISTS idx_car_models_brand_id ON car_models(brand_id);
+CREATE INDEX IF NOT EXISTS idx_car_models_model_name ON car_models(model_name);
 
 COMMIT;

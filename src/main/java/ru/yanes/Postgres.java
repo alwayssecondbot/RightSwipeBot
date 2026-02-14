@@ -11,7 +11,7 @@ import java.util.Properties;
 import java.sql.*;
 
 
-//TODO перенести определение переменных в отдельную конфигурацию
+//TODO.csv перенести определение переменных в отдельную конфигурацию
 public class Postgres {
     private static String URL;
     private static String USER;

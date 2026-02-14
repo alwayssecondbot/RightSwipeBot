@@ -3,7 +3,7 @@ package ru.yanes.Car;
 import ru.yanes.Car.Parts.Body;
 import ru.yanes.Car.Parts.PowertrainSystem;
 
-//TODO переделать на билдер сначала вручную, потом через конструктор
+//TODO.csv переделать на билдер сначала вручную, потом через конструктор
 public abstract class Car {
     String name = null;
     Brand brand = null;

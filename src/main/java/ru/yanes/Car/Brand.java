@@ -1,48 +1,44 @@
 package ru.yanes.Car;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
-import ru.yanes.Car.Parts.SqlEntity;
-import ru.yanes.Postgres;
+import ru.yanes.Car.Parts.Corporation;
+import ru.yanes.Car.Parts.Country;
 
-@AllArgsConstructor
-public class Brand implements SqlEntity {
-    @Getter
-    private String brandName;
-    private CountryCode brandCountry;
-    private
 
-    public String getBrandCountry(String type){
-        return switch (type) {
-            case "code" -> brandCountry.getNumeric();
-            case "alpha" -> brandCountry.getAlpha3();
-            default -> brandCountry.getName();
-        };
-    }
+@Getter
+@Entity
+@Table(name = "brands")
+public class Brand{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private short idl;
 
-    public String getBrandCountry(){
-        return brandCountry.getName();
-    }
+    @Column(name = "full_name", nullable = false, unique = true)
+    private String brandFullName;
 
-    @Override
-    public void addToBase(Postgres postgres) {
-        postgres.executeSql("INSERT INTO public.brands (full_name, short_name, country_code, owner_id ) VALUES ('" + brandName + "', '', ''); COMMIT;"
-                , "insert");
-    }
+    @Column(name = "short_name", nullable = false, unique = true)
+    private String brandShortName;
 
-    @Override
-    public void editInBase(Postgres postgres) {
+    @ManyToOne
+    @JoinColumn(name = "country_code", nullable = false)
+    private Country country;
 
-    }
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private Corporation owner;
 
-    @Override
-    public void deleteFromBase(Postgres postgres) {
+    public Brand(){}
+//    public String getBrandCountry(String type){
+//        return switch (type) {
+//            case "code" -> brandCountry.getNumeric();
+//            case "alpha" -> brandCountry.getAlpha3();
+//            default -> brandCountry.getName();
+//        };
+//    }
 
-    }
-
-    @Override
-    public void getFromBase(Postgres postgres) {
-
-    }
+//    public String getBrandCountry(){
+//        return brandCountry.getName();
+//    }
 }
 

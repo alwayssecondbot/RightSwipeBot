@@ -1,0 +1,11 @@
+Date|Type|Difficulty|Priority|Task|Update
+14.02.2026|TODO|2|3|Add log functions|
+14.02.2026|TODO|2|2|Add search-selectors in class Model|
+14.02.2026|TODO|2|2|Add search-selectors in class Country|
+14.02.2026|TODO|2|2|Add search-selectors in class Corporation|
+14.02.2026|TODO|2|2|Add search-selectors in class Brand|
+14.02.2026|TODO|3|1|Add insert_in_db method in class Model|
+14.02.2026|TODO|1|5|Write documentation to project|
+14.02.2026|TODO|2|3|Add body-types class and table |
+14.02.2026|TODO|2|2|Add insert_in_db method in class Corporations|
+14.02.2026|TODO|2|2|Add insert_in_db method in class Brands|
