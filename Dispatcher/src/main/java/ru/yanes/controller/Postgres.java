@@ -1,4 +1,4 @@
-package ru.yanes;
+package ru.yanes.controller;
 
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class Postgres {
     private static String drop_db;
 //    private static final Logger log = LogManager.getLogger(Postgres.class);
 
-    Postgres() {
+    public Postgres() {
 
         try(InputStream input = getClass().getClassLoader().getResourceAsStream("application.yml")) {
             init_db = new String(Files.readAllBytes(Paths.get(

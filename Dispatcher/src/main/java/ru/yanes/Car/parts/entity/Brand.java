@@ -1,4 +1,4 @@
-package ru.yanes.Car.Parts.Entity;
+package ru.yanes.Car.parts.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package ru.yanes.Car.Parts.Entity;
+package ru.yanes.Car.parts.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 
 
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,23 +21,30 @@ import lombok.Builder;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "corporations")
-public class Corporation {
+@Table(name = "car_models")
+public class Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private short id;
+    private Long id;
 
-    @Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")
-    @Column(name = "name", nullable = false, length = 200)
+    @Size(min = 1, max = 200, message = "Length of attribute 'model_name' must be more than 1 and less than 200")
+    @Column(name = "model_name", nullable = false, length = 200)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "country_code", nullable = false)
+    @JoinColumn(name = "brand_id", nullable = false)
+    private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(name = "assemble_country", nullable = false)
     private Country country;
 
+    @Pattern(regexp = "19|20[0-9]{3}")
+    @Column(name = "assemble_date", nullable = false)
+    private short date;
 }

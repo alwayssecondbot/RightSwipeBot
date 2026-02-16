@@ -1,4 +1,4 @@
-package ru.yanes.Car.Parts;
+package ru.yanes.Car.parts;
 
 import lombok.RequiredArgsConstructor;
 

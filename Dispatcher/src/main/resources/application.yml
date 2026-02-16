@@ -22,20 +22,18 @@ bot:
 
 spring:
   datasource:
-    url
-  jdbc:postgresql://localhost:5432/yourdb
-spring.datasource.username=youruser
-spring.datasource.password=yourpassword
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-# Настройки HikariCP
-spring.datasource.hikari.maximum-pool-size=10
-spring.datasource.hikari.minimum-idle=5
-spring.datasource.hikari.connection-timeout=30000
-spring.datasource.hikari.idle-timeout=600000
-spring.datasource.hikari.max-lifetime=1800000
-
-# JPA настройки
-spring.jpa.hibernate.ddl-auto=validate
-spring.jpa.show-sql=true
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+    url: jdbc:postgresql://localhost:5432/yourdb
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
