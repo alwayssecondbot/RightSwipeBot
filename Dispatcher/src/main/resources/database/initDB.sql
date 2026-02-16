@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS brands
         ON UPDATE CASCADE,
 
     CONSTRAINT valid_full_name CHECK (LENGTH(full_name) BETWEEN 3 AND 100),
-    CONSTRAINT valid_short_name CHECK (LENGTH(full_name) BETWEEN 2 AND 25)
+    CONSTRAINT valid_short_name CHECK (LENGTH(short_name) BETWEEN 2 AND 25)
 );
 
 CREATE TABLE IF NOT EXISTS car_models
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS car_models
     model_name VARCHAR(200) NOT NULL,
     brand_id SMALLINT NOT NULL,
     assemble_country VARCHAR(3) NOT NULL,
-    assemble_date DATE NOT NULL,
+    assemble_date SMALLINT NOT NULL,
 
     CONSTRAINT fk_brands
         FOREIGN KEY (brand_id)
@@ -67,7 +67,10 @@ CREATE TABLE IF NOT EXISTS car_models
         FOREIGN KEY (assemble_country)
             REFERENCES countries(code)
             ON DELETE RESTRICT
-            ON UPDATE CASCADE
+            ON UPDATE CASCADE,
+
+    CONSTRAINT valid_model_name CHECK (LENGTH(model_name) BETWEEN 1 AND 200),
+    CONSTRAINT valid_assemble_date CHECK (assemble_date BETWEEN 1800 AND 2100)
 );
 
 CREATE INDEX IF NOT EXISTS idx_brands_country_codes ON brands(country_code);

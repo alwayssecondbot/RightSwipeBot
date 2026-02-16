@@ -1,0 +1,41 @@
+#database.url=jdbc:postgresql://localhost:5432/postgres
+#database.username=username
+#database.password=password
+#database.driver=org.postgresql.Driver
+#database.port=5432
+#database.schema=public
+
+server:
+  port: 8080
+  ssl:
+    enabled: false
+
+bot:
+  name: AutoGeek
+  version: 0.1b
+  token: 7337091756:AAGC1UQRpmA7iDTDFXXr7MI2g9TqC10DRhQ
+  uri: https://7965-213-21-222-59.ngrok-free.app
+  path: "/update"
+  adminChatId: 8131369777
+  supportChatId: 403438777
+
+
+spring:
+  datasource:
+    url
+  jdbc:postgresql://localhost:5432/yourdb
+spring.datasource.username=youruser
+spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Настройки HikariCP
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.idle-timeout=600000
+spring.datasource.hikari.max-lifetime=1800000
+
+# JPA настройки
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect

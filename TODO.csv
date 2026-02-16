@@ -8,4 +8,5 @@ Date|Type|Difficulty|Priority|Task|Update
 14.02.2026|TODO|1|5|Write documentation to project|
 14.02.2026|TODO|2|3|Add body-types class and table |
 14.02.2026|TODO|2|2|Add insert_in_db method in class Corporations|
-14.02.2026|TODO|2|2|Add insert_in_db method in class Brands|
+14.02.2026|TODO|2|0|Add insert_in_db method in class Brands|
+15.02.2026|TODO|3|1|Move to spring|

@@ -1,0 +1,44 @@
+{
+  "configuration": {
+    "status": "warn",
+    "name": "PostgresLogConfig",
+    "appenders": {
+      "Console": {
+        "name": "stdout",
+        "target": "SYSTEM_OUT",
+        "PatternLayout": {
+          "pattern": "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"
+        }
+      },
+      "RollingFile": {
+        "name": "file",
+        "fileName": "./logs/postgres.log",
+        "filePattern": "./logs/postgres-%i.log",
+        "PatternLayout": {
+          "pattern": "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"
+        },
+        "Policies": {
+          "SizeBasedTriggeringPolicy": {
+            "size": "5 MB"
+          }
+        },
+        "DefaultRolloverStrategy": {
+          "max": 10
+        }
+      }
+    },
+    "loggers": {
+      "root": {
+        "level": "info",
+        "appenderRef": [
+          {
+            "ref": "stdout"
+          },
+          {
+            "ref": "file"
+          }
+        ]
+      }
+    }
+  }
+}
