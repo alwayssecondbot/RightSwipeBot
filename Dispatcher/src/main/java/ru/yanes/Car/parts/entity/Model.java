@@ -1,4 +1,4 @@
-package ru.yanes.Car.parts.entity;
+package ru.yanes.car.parts.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,7 +30,7 @@ public class Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Size(min = 1, max = 200, message = "Length of attribute 'model_name' must be more than 1 and less than 200")
     @Column(name = "model_name", nullable = false, length = 200)

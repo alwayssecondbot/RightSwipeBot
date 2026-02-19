@@ -1,35 +1,20 @@
 package ru.yanes.config;
 
 
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Data;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Getter
+@Data
 @Configuration
-@PropertySource("application.yml")
+@ConfigurationProperties(prefix = "bot")
 public class Config {
 
-    @Value("${bot.name}")
-    private String botName;
-
-    @Value("${bot.version}")
-    private String botVersion;
-
-    @Value("${bot.token}")
-    private String botToken;
-
-    @Value("${bot.adminChatId}")
+    private String name;
+    private String version;
+    private String token;
     private String adminChatId;
-
-    @Value("${bot.supportChatId}")
     private String supportChatId;
-
-    @Value("${bot.uri}")
-    private String botUri;
-
-    @Value("${bot.path}")
-    private String botPath;
-
+    private String uri;
+    private String path;
 }

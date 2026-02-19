@@ -9,4 +9,4 @@ Date|Type|Difficulty|Priority|Task|Update
 14.02.2026|TODO|2|3|Add body-types class and table |
 14.02.2026|TODO|2|2|Add insert_in_db method in class Corporations|
 14.02.2026|TODO|2|1|Add insert_in_db method in class Brands|Need add autochekers ang jpa firstly
-15.02.2026|TODO|3|0|Move to spring|Add long polling class with simple functionality. Later will add JPA module with autochekers.
+15.02.2026|COMPLETE|3|999|Move to spring|Add long polling class with simple functionality. Later will add JPA module with autochekers.

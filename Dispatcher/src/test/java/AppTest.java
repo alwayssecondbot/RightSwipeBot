@@ -8,8 +8,10 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.testng.annotations.Test;
 import ru.yanes.Car.parts.entity.Country;
+import ru.yanes.config.Config;
 import ru.yanes.controller.Postgres;
 
 import java.util.Set;
@@ -22,6 +24,38 @@ public class AppTest {
     public void wouldStartHibernate(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("AutoGeek");
         EntityManager em = emf.createEntityManager();
+    }
+
+    @Test
+    public void configArgsNotNull() throws Exception {
+        Config config = new Config();
+        String message = "";
+        if (config.getSupportChatId() == null) {
+            message+="- Support chat id;\n";
+        }
+        if (config.getAdminChatId() == null) {
+            message+="- Admin chat id;\n";
+        }
+        if (config.getName() == null){
+            message+="- Bot name;\n";
+        }
+        if (config.getPath() == null){
+            message+="- Bot path;\n";
+        }
+        if (config.getVersion() == null){
+            message+="- Bot version;\n";
+        }
+        if (config.getUri() == null){
+            message+="- Bot uri;\n";
+        }
+        if (config.getToken() == null){
+            message+="- Bot token;\n";
+        }
+
+        if (!message.isEmpty()){
+            throw new Exception("One or more fields is null:\n"+message);
+        }
+
     }
 
     @Test

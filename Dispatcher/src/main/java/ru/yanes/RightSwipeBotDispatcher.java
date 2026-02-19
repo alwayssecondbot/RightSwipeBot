@@ -10,6 +10,7 @@ public class RightSwipeBotDispatcher {
     public static void main(String[] args){
         fixSystemOutEncoding();
         SpringApplication.run(RightSwipeBotDispatcher.class, args);
+//        System.out.println("🚀 Telegram бот запущен!");
     }
 
     private static void fixSystemOutEncoding() {

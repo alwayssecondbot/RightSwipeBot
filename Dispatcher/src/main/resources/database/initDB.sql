@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS brands
 
 CREATE TABLE IF NOT EXISTS car_models
 (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     model_name VARCHAR(200) NOT NULL,
     brand_id SMALLINT NOT NULL,
     assemble_country VARCHAR(3) NOT NULL,
