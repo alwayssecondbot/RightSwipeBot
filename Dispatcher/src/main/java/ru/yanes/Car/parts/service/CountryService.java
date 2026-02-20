@@ -17,7 +17,5 @@ public class CountryService {
     private final CountryDAO countryDAO;
 
     @Transactional
-    public Country getCountry(){
-
-    }
+    public Country getCountry(){return new Country();}
 }
