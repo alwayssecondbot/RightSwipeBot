@@ -51,6 +51,6 @@ public class WorkingHours {
 			}
 		}
 	}
+	record Interval(LocalTime start, LocalTime end) {}
 }
 
-record Interval(LocalTime start, LocalTime end) {}

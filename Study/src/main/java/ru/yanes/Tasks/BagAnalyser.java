@@ -20,6 +20,6 @@ public class BagAnalyser {
 
 		System.out.println(analyse);
 	}
+	record Order(long id, String customer, List<String> items) {}
 }
 
-record Order(long id, String customer, List<String> items) {}

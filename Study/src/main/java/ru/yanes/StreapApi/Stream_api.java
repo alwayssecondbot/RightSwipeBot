@@ -1,4 +1,6 @@
-package ru.yanes;
+package ru.yanes.StreapApi;
+
+import ru.yanes.SpaceShip;
 
 import java.util.Arrays;
 import java.util.List;

@@ -61,6 +61,6 @@ public class ShadowBan {
 				.toList();
 		System.out.println(spammers);
 	}
+	record Comment(String user, String text, boolean isSpam) {}
 }
 
-record Comment(String user, String text, boolean isSpam) {}

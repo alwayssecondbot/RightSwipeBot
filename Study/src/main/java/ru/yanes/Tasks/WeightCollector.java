@@ -19,6 +19,7 @@ public class WeightCollector {
 					(left, right) -> {
 						left[0] += right[0];
 						left[1] += right[1];
+
 						return left;
 					},
 					list -> list[1] == 0?0:(list[0] / list[1]),

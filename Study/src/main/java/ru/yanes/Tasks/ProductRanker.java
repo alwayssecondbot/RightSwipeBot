@@ -32,6 +32,6 @@ public class ProductRanker {
 
 		System.out.println(productsMap);
 	}
+	record Product(String name, String category, double price) {}
 }
 
-record Product(String name, String category, double price) {}

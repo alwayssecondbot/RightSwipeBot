@@ -33,19 +33,17 @@ public class RushHour {
 						map.put(date, new HashSet<>(Collections.singletonList(visit.userId())));
 					}
 				},
-				(left, right) ->  {
-					return Stream.concat(
-							left.entrySet().stream(),
-							right.entrySet().stream())
-							.collect(Collectors.toMap(Map.Entry::getKey,
-									entry -> new HashSet<>(entry.getValue()),
-									(up, down) -> {
-										Set<String> merged = new HashSet<>(up);
-										merged.addAll(down);
-										return merged;
-									}
-							));
-				},
+				(left, right) -> Stream.concat(
+						left.entrySet().stream(),
+						right.entrySet().stream())
+						.collect(Collectors.toMap(Map.Entry::getKey,
+								entry -> new HashSet<>(entry.getValue()),
+								(up, down) -> {
+									Set<String> merged = new HashSet<>(up);
+									merged.addAll(down);
+									return merged;
+								}
+						)),
 				map -> {
 					Map.Entry<Integer,Integer> max = Map.entry(0,0);
 
@@ -99,7 +97,7 @@ public class RushHour {
 		);
 
 	}
+	record Visit(String userId, LocalDateTime timestamp) {}
 }
 
 
-record Visit(String userId, LocalDateTime timestamp) {}

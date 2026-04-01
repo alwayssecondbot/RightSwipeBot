@@ -38,8 +38,10 @@ public class TransactionController {
 						))
 				.collect(Collectors.groupingBy(unit -> unit.getTransaction().type(), Collectors.summingDouble(unit -> unit.getTransaction().amount())));
 	}
+
+	enum TransactionType { DEPOSIT, WITHDRAWAL, TRANSFER }
+	enum Status { COMPLETED, PENDING, FAILED }
 }
 
-enum TransactionType { DEPOSIT, WITHDRAWAL, TRANSFER }
-enum Status { COMPLETED, PENDING, FAILED }
+
 

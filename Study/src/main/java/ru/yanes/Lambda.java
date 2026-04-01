@@ -102,18 +102,20 @@ public class Lambda {
             System.out.println("Доступ разрешен");
         }
     }
+
+
+    interface Addable<T> {
+        T test(T t);
+
+        default <V> Removable<T> andThen(Removable<T> after) {
+            Objects.requireNonNull(after);
+            return (t) -> after.test(test(t));
+        };
+    }
+
+    interface Removable<T> {
+        boolean test(T t);
+    }
 }
 
-interface Addable<T> {
-    T test(T t);
-
-    default <V> Removable<T> andThen(Removable<T> after) {
-        Objects.requireNonNull(after);
-        return (t) -> after.test(test(t));
-    };
-}
-
-interface Removable<T> {
-    boolean test(T t);
-}
 

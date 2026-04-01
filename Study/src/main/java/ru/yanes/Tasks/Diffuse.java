@@ -17,7 +17,8 @@ public class Diffuse {
 						)
 				);
 	}
+
+	record Trade(String ticker, double price) {}
+	record TradeExtremes(Trade minTrade, Trade maxTrade) {}
 }
 
-record Trade(String ticker, double price) {}
-record TradeExtremes(Trade minTrade, Trade maxTrade) {}

@@ -36,6 +36,5 @@ public class TopManagement {
 
 		System.out.println(rich);
 	}
+	record Employee(String name, String department, double salary) {}
 }
-
-record Employee(String name, String department, double salary) {}
