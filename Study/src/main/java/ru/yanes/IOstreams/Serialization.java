@@ -1,11 +1,13 @@
 package ru.yanes.IOstreams;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Serialization {
 	public static void main(String[] args) throws IOException {
 		Car myCar = new Car("Ford GT 40", Color.BLUE, 400, 400_000);
-
+		
 		myCar.startEngine();
 		System.out.println(myCar);
 
@@ -18,6 +20,50 @@ public class Serialization {
 			System.out.println(newCar);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
+		}
+
+		Team team = new Team();
+		Hero hero = new Hero("Spiderman");
+
+		team.addHero(hero);
+		System.out.println(team.getHeroes().get(0).getName());
+
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("myTeam.dat"))) {
+			oos.writeObject(team);
+		}
+
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("myTeam.dat"))) {
+			Team newTeam = (Team) ois.readObject();
+			System.out.println(team.getHeroes().size());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	static class Team implements Serializable {
+		List<Hero> heroes = new ArrayList<>();
+
+		public void addHero(Hero hero) {
+			heroes.add(hero);
+		}
+
+		public List<Hero> getHeroes() {
+			return heroes;
+		}
+
+		public String toString() {
+			return String.join(", ", heroes.toString());
+		}
+	}
+
+	static class Hero implements Serializable {
+		private final String name;
+
+		Hero(String name) {
+			this.name = name;
+		}
+		public String getName() {
+			return name;
 		}
 	}
 }
@@ -85,6 +131,6 @@ class Car implements Serializable {
 	}
 }
 
-enum Color implements Serializable {
+enum Color {
 	RED, GREEN, BLUE;
 }
