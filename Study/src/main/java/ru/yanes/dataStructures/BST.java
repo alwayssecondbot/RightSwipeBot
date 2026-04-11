@@ -6,18 +6,17 @@ public class BST {
 		BinaryTree tree = new BinaryTree();
 
 		tree.insert(5);
-		tree.insert(6);
 		tree.insert(7);
+		tree.insert(3);
+		tree.insert(2);
+		tree.insert(4);
+		tree.insert(6);
 		tree.insert(8);
-		tree.insert(9);
-		tree.insert(10);
-		tree.insert(11);
-		tree.insert(1);
 
-		System.out.println(tree.find(tree.root,6));
-		System.out.println(tree.find(tree.root,7));
-		System.out.println(tree.find(tree.root,8));
-		System.out.println(tree.find(tree.root,1));
+		System.out.println(tree.root.right.right.data);
+		System.out.println(tree.find(7));
+		System.out.println(tree.find(8));
+		System.out.println(tree.find(3));
 
 		System.out.println(tree);
 	}
@@ -46,28 +45,32 @@ public class BST {
 			if (this.root == null) {
 				this.root = new Node(data);
 			} else {
-				Node temp = this.root;
-				while (temp != null) {
-					if (temp.data < data) {
-						if (temp.hasRight()) {
-							temp = temp.right;
-						} else {
-							temp.right = new Node(data);
-						}
-					} else if (temp.data > data) {
-						if  (temp.hasLeft()) {
-							temp = temp.left;
-						} else  {
-							temp.left = new Node(data);
-						}
-					} else {
-						return;
-					}
+				this.insert(this.root, data);
+			}
+		}
+		public void insert(Node current, int data) {
+			if (current.data < data) {
+				if (current.hasRight()) {
+					insert(current.right, data);
+				} else {
+					current.right = new Node(data);
+				}
+			}
+
+			if (current.data > data) {
+				if  (current.hasLeft()) {
+					insert(current.left, data);
+				} else  {
+					current.left = new Node(data);
 				}
 			}
 		}
 
-		public boolean find(Node current, int value) {
+		public boolean find(int data) {
+			return this.find(this.root, data);
+		}
+
+		private boolean find(Node current, int value) {
 			if (current == null) {
 				return false;
 			}
@@ -81,17 +84,25 @@ public class BST {
 		}
 
 		public String toString() {
-			String result = "";
 			Node current = this.root;
 
-			return toString(current, result);
+			return toString(current);
 		}
 
-		private String toString(Node current, String result) {
-			while (current.hasLeft()) {
-				current = current.left;
-			}
-			return result;
+		private String toString(Node node) {
+			if (node == null) return "null";
+			return node.data + " -> [" + toString(node.left) + ", " + toString(node.right) + "]";
 		}
+
+//		private String toString(Node current, String result) {
+//
+//			if (current.hasLeft()) {
+//				result = toString(current.left, result);
+//			}
+//			if (current.hasRight()) {
+//				result = toString(current.left, result);
+//			}
+//			return  current.data + result +;
+//		}
 	}
 }

@@ -15,7 +15,6 @@ public class Optionals {
 
 		spaceships(spaceship);
 
-
 	}
 
 	static void spaceships(Spaceship spaceship) {
