@@ -8,7 +8,6 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.testng.annotations.Test;
 import ru.yanes.entities.global.Country;
 import ru.yanes.config.Config;

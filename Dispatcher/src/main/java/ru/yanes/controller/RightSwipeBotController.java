@@ -2,6 +2,7 @@ package ru.yanes.controller;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import ru.yanes.config.Config;
+import ru.yanes.services.CountryService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,10 +21,12 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class RightSwipeBotController extends TelegramLongPollingBot {
     private final Config config;
+    private final CountryService countryService;
 
     @Override
     public String getBotUsername() {
         return config.getName();
+        countryService = 
     }
 
     @Override
@@ -78,6 +82,9 @@ public class RightSwipeBotController extends TelegramLongPollingBot {
 
             case "/joke":
                 return getRandomJoke();
+
+            case "/countries":
+                return
 
             default:
                 return String.format("❌ Команда '%s' не распознана. Введите /help для списка команд.",

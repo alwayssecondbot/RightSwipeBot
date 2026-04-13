@@ -1,7 +1,4 @@
-package ru.yanes.entities;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import ru.yanes.entities.global.repos.CountryReposytory;
+package ru.yanes;
 
 import java.util.List;
 import java.util.Optional;

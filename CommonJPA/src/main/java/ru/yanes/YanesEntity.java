@@ -1,6 +1,4 @@
-package ru.yanes.entities;
-
-import lombok.Getter;
+package ru.yanes;
 
 public abstract class YanesEntity {
 

@@ -8,13 +8,6 @@ import java.nio.charset.StandardCharsets;
 @SpringBootApplication
 public class RightSwipeBotDispatcher {
     public static void main(String[] args){
-        fixSystemOutEncoding();
         SpringApplication.run(RightSwipeBotDispatcher.class, args);
-//        System.out.println("🚀 Telegram бот запущен!");
-    }
-
-    private static void fixSystemOutEncoding() {
-        System.setOut(new java.io.PrintStream(System.out, true, StandardCharsets.UTF_8));
-        System.setErr(new java.io.PrintStream(System.err, true, StandardCharsets.UTF_8));
     }
 }

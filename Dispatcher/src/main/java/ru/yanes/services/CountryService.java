@@ -1,21 +1,19 @@
-package ru.yanes.entities.global.services;
+package ru.yanes.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import ru.yanes.entities.AbstractJpaService;
-import ru.yanes.entities.global.Country;
-import ru.yanes.entities.global.repos.CountryReposytory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.yanes.AbstractJpaService;
+import ru.yanes.global.dao.CountryDAO;
+import ru.yanes.global.entity.Country;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
+@Service
 public class CountryService extends AbstractJpaService<Country,String> {
 
-	@Autowired
-	private final CountryReposytory reposytory;
-
-	protected CountryService(CountryReposytory countryReposytory) {
-		this.reposytory = countryReposytory;
-	}
+	private final CountryDAO reposytory;
 
 	@Override
 	protected Country doSave(Country entity) {

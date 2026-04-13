@@ -1,5 +1,4 @@
-package ru.yanes.entities.global;
-
+package ru.yanes.global.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,11 +8,12 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import ru.yanes.entities.YanesEntity;
+import ru.yanes.YanesEntity;
 
 @Setter
 @Getter
 @Builder
+@EqualsAndHashCode(exclude = "code", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
