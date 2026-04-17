@@ -9,11 +9,6 @@ server:
   port: 8080
   ssl:
     enabled: false
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
 
 bot:
   name: AutoGeek
@@ -44,6 +39,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  threads:
+    virtual:
+      enabled: true
 
 logging:
   level:

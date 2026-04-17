@@ -1,8 +1,8 @@
 package ru.yanes.controller;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -26,7 +26,6 @@ public class RightSwipeBotController extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         return config.getName();
-        countryService = 
     }
 
     @Override
@@ -82,9 +81,6 @@ public class RightSwipeBotController extends TelegramLongPollingBot {
 
             case "/joke":
                 return getRandomJoke();
-
-            case "/countries":
-                return
 
             default:
                 return String.format("❌ Команда '%s' не распознана. Введите /help для списка команд.",

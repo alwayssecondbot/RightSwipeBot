@@ -1,19 +1,39 @@
+
+-- GENERAL ENTITIES
 CREATE TABLE IF NOT EXISTS countries
 (
     code VARCHAR(3) NOT NULL UNIQUE PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
+    full_name VARCHAR(200) NOT NULL,
     alpha2 VARCHAR(2) NOT NULL UNIQUE,
     alpha3 VARCHAR(3) NOT NULL UNIQUE,
+    flag VARCHAR(255) NOT NULL UNIQUE
+
 
     CONSTRAINT valid_alpha CHECK (LENGTH(alpha2) = 2 and LENGTH(alpha3) = 3),
     CONSTRAINT valid_code CHECK (LENGTH(code) = 3 AND code ~* '^[0-9]{3}'),
-    CONSTRAINT valid_name CHECK (LENGTH(name) BETWEEN 3 AND 200)
+    CONSTRAINT valid_name CHECK (LENGTH(full_name) BETWEEN 3 AND 200)
 );
 
-CREATE TABLE IF NOT EXISTS corporations
+CREATE TABLE IF NOT EXISTS cities
+(
+    id SERIAL NOT NULL UNIQUE PRIMARY KEY,
+    full_name VARCHAR(200) NOT NULL,
+    country_code VARCHAR(3) NOT NULL,
+
+    CONSTRAINT fk_countries
+        FOREIGN KEY (country_code)
+            REFERENCES countries(code)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+
+    CONSTRAINT valid_name CHECK (LENGTH(full_name) BETWEEN 3 AND 200)
+);
+
+--AUTOPROM ENTITIES
+CREATE TABLE IF NOT EXISTS concerns
 (
     id SMALLSERIAL PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
+    full_name VARCHAR(200) NOT NULL,
     country_code VARCHAR(3) NOT NULL,
 
     CONSTRAINT fk_countries
@@ -22,7 +42,7 @@ CREATE TABLE IF NOT EXISTS corporations
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
 
-    CONSTRAINT valid_name CHECK (LENGTH(name) BETWEEN 3 AND 200)
+    CONSTRAINT valid_name CHECK (LENGTH(full_name) BETWEEN 3 AND 200)
 );
 
 CREATE TABLE IF NOT EXISTS brands

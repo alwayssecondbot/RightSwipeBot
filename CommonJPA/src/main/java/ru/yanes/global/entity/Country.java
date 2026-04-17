@@ -6,12 +6,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import ru.yanes.YanesEntity;
 
-@Setter
-@Getter
+@Data
 @Builder
 @EqualsAndHashCode(exclude = "code", callSuper = false)
 @NoArgsConstructor
@@ -25,8 +29,8 @@ public class Country extends YanesEntity {
 	private String code;
 
 	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")
-	@Column(name = "name", nullable = false, length = 200)
-	private String name;
+	@Column(name = "full_name", nullable = false, length = 200)
+	private String full_name;
 
 	@Pattern(regexp = "[a-zA-Z]{2}", message = "There must be only 2 symbols in attribute 'alpha2'.")
 	@Column(name = "alpha2", nullable = false, unique = true, length = 2)
@@ -35,6 +39,10 @@ public class Country extends YanesEntity {
 	@Pattern(regexp = "[a-zA-Z]{3}", message = "There must be only 3 symbols in attribute 'alpha3'.")
 	@Column(name = "alpha3", nullable = false, unique = true, length = 3)
 	private String alpha3;
+
+	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
+	@Column(name = "flag", nullable = false, unique = true, length = 250)
+	private String flag;
 
 	@Override
 	public boolean hasFullView() {

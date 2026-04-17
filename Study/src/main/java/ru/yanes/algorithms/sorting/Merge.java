@@ -10,23 +10,10 @@ public class Merge {
 		int[] arr2 = {2};
 
 
-		MergeSort.mergeSort(arr);
+		mergeSort(arr);
 		System.out.println(Arrays.toString(arr));
-
-		List<Integer> list = new ArrayList<>();
-		list.add(5);
-		list.add(23);
-		list.add(3);
-		sortList(list);
-		System.out.println(list);
 	}
 
-	static void sortList(List<Integer> list) {
-		list.sort(Comparator.comparing(Integer::intValue));
-	}
-}
-
-class MergeSort {
 	static void mergeSort(int[] arr) {
 		if (arr.length < 2) return;
 
@@ -42,8 +29,6 @@ class MergeSort {
 		mergeSort(right);
 
 		merge(left, right, arr);
-
-
 	}
 
 	static void merge(int[] left, int[] right, int[] arr) {

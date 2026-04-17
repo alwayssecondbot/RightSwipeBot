@@ -1,37 +1,30 @@
 package ru.yanes.services;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.yanes.AbstractJpaService;
+import ru.yanes.ObjectNotFoundException;
 import ru.yanes.global.dao.CountryDAO;
 import ru.yanes.global.entity.Country;
 
 import java.util.List;
-import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
-public class CountryService extends AbstractJpaService<Country,String> {
+public class CountryService {
 
-	private final CountryDAO reposytory;
+	private final CountryDAO repository;
 
-	@Override
-	protected Country doSave(Country entity) {
-		return reposytory.save(entity);
+	public CountryService(CountryDAO repository) {
+		this.repository = repository;
 	}
 
-	@Override
-	protected Optional<Country> doFindById(String s) {
-		return Optional.empty();
+	public Country findById(String id) {
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
 	}
 
-	@Override
-	protected List<Country> doFindAll() {
-		return List.of();
+	public Country save(Country country) {
+		return repository.save(country);
 	}
 
-	@Override
-	protected void doDeleteById(String s) {
-
+	public List<Country> findAll() {
+		return repository.findAll();
 	}
 }
