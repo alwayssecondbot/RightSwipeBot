@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import ru.yanes.YanesEntity;
-import ru.yanes.global.entity.Country;
 
 import java.util.Set;
+
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -21,16 +21,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "concerns")
-public class Concern extends YanesEntity {
+@Table(name = "complectations")
+public class Generation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
-
-	@Size(max = 50, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 50")
-	@Column(nullable = false, length = 50)
-	private String short_name;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
@@ -38,27 +34,35 @@ public class Concern extends YanesEntity {
 
 	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
 	@Column(nullable = false, unique = true, length = 250)
-	private String logo;
+	private String photos;
 
 	@ManyToOne
-	@JoinColumn(name = "country_code", nullable = false)
-	private Country country;
-
-	@OneToOne
-	@JoinColumn(name = "main_brand_id", nullable = false)
-	private Brand brand;
+	@JoinColumn(name = "model_id",nullable = false)
+	private Model model;
 
 	@Column
-	private Integer capitalization;
+	private Short year_start;
 
 	@Column
-	private Byte grows;
+	private Short year_stop;
+
+	@Column
+	private Integer produced_auto;
+
+	@Column
+	private Integer sold_auto;
 
 	@Column
 	private String description_n_history;
 
+	@Column
+	private Integer price_max;
+
+	@Column
+	private Integer price_min;
+
 	@OneToMany
-	private Set<Brand> brands;
+	private Set<Complectation> complectations;
 
 	@Override
 	public boolean hasFullView() {

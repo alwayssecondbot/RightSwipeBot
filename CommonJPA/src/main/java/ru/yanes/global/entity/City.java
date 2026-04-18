@@ -1,7 +1,5 @@
 package ru.yanes.global.entity;
 
-
-
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
@@ -27,18 +25,18 @@ import ru.yanes.YanesEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "cities")
 public class City extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "country_code", nullable = false)
+	@JoinColumn(nullable = false)
 	private Country country;
 
 	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")
-	@Column(name = "full_name", nullable = false, length = 200)
+	@Column(nullable = false, length = 200)
 	private String full_name;
 
 

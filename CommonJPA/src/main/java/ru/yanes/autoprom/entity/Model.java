@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import ru.yanes.YanesEntity;
-import ru.yanes.global.entity.Country;
 
 import java.util.Set;
 
@@ -21,16 +20,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "concerns")
-public class Concern extends YanesEntity {
+@Table(name = "models")
+public class Model extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
-
-	@Size(max = 50, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 50")
-	@Column(nullable = false, length = 50)
-	private String short_name;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
@@ -38,27 +33,17 @@ public class Concern extends YanesEntity {
 
 	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
 	@Column(nullable = false, unique = true, length = 250)
-	private String logo;
+	private String photos;
 
 	@ManyToOne
-	@JoinColumn(name = "country_code", nullable = false)
-	private Country country;
-
-	@OneToOne
-	@JoinColumn(name = "main_brand_id", nullable = false)
+	@JoinColumn(name = "brand_id", nullable = false)
 	private Brand brand;
-
-	@Column
-	private Integer capitalization;
-
-	@Column
-	private Byte grows;
 
 	@Column
 	private String description_n_history;
 
 	@OneToMany
-	private Set<Brand> brands;
+	private Set<Generation> generations;
 
 	@Override
 	public boolean hasFullView() {

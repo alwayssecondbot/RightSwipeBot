@@ -21,8 +21,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "concerns")
-public class Concern extends YanesEntity {
+@Table(name = "brands")
+public class Brand extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +41,12 @@ public class Concern extends YanesEntity {
 	private String logo;
 
 	@ManyToOne
-	@JoinColumn(name = "country_code", nullable = false)
+	@JoinColumn(name = "country_code",nullable = false)
 	private Country country;
 
-	@OneToOne
-	@JoinColumn(name = "main_brand_id", nullable = false)
-	private Brand brand;
+	@ManyToOne
+	@JoinColumn(name = "concern_id",nullable = false)
+	private Concern concern;
 
 	@Column
 	private Integer capitalization;
@@ -57,8 +57,14 @@ public class Concern extends YanesEntity {
 	@Column
 	private String description_n_history;
 
+	@Column
+	private Integer produced_auto;
+
+	@Column
+	private Integer sold_auto;
+
 	@OneToMany
-	private Set<Brand> brands;
+	private Set<Model> models;
 
 	@Override
 	public boolean hasFullView() {

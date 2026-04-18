@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository;
 import ru.yanes.global.entity.City;
 
 @Repository
-public interface CityDAO extends JpaRepository<City,String> {}
+public interface CityDAO extends JpaRepository<City,Integer> {}
