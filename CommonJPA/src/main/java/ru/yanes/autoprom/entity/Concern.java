@@ -26,38 +26,38 @@ public class Concern extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Short id;
+	private short id;
 
-	@Size(max = 50, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 50")
+	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
 	private String short_name;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
+	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
-	@Column(nullable = false, unique = true, length = 250)
+	@Column(unique = true)
 	private String logo;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "country_code", nullable = false)
 	private Country country;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "main_brand_id", nullable = false)
-	private Brand brand;
+	private Brand main_brand;
 
 	@Column
-	private Integer capitalization;
+	private int capitalization;
 
 	@Column
-	private Byte grows;
+	private byte grows;
 
-	@Column
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@OneToMany
+	@OneToMany(mappedBy = "concern", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Brand> brands;
 
 	@Override

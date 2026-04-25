@@ -32,7 +32,7 @@ public class City extends YanesEntity {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "country_code", nullable = false)
 	private Country country;
 
 	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")

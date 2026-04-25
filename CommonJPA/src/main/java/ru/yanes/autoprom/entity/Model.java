@@ -25,24 +25,24 @@ public class Model extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Short id;
+	private short id;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
-	@Column(nullable = false, unique = true, length = 250)
+	@Column(unique = true)
 	private String photos;
 
 	@ManyToOne
 	@JoinColumn(name = "brand_id", nullable = false)
 	private Brand brand;
 
-	@Column
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@OneToMany
+	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Generation> generations;
 
 	@Override

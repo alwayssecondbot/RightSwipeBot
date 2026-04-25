@@ -1,12 +1,11 @@
-Date|Type|Difficulty|Priority|Task|Update
-14.02.2026|COMPLETE|2|999|Add log functions|add log4j2
-14.02.2026|TODO|2|2|Add search-selectors in class Model|
-14.02.2026|TODO|2|2|Add search-selectors in class Country|
-14.02.2026|TODO|2|2|Add search-selectors in class Corporation|
-14.02.2026|TODO|2|2|Add search-selectors in class Brand|
-14.02.2026|TODO|3|1|Add insert_in_db method in class Model|Need add autochekers ang jpa firstly
-14.02.2026|TODO|1|5|Write documentation to project|
-14.02.2026|TODO|2|3|Add body-types class and table |
-14.02.2026|TODO|2|2|Add insert_in_db method in class Corporations|
-14.02.2026|TODO|2|1|Add insert_in_db method in class Brands|Need add autochekers ang jpa firstly
-15.02.2026|COMPLETE|3|999|Move to spring|Add long polling class with simple functionality. Later will add JPA module with autochekers.
+Date|Type|Difficulty|Priority|Task
+14.02.2026|COMPLETE|0|999|Add log functions
+14.02.2026|COMPLETE|0|999|Write documentation to project
+15.02.2026|COMPLETE|0|999|Move to spring
+19.04.2026|COMPLETE|1|999|Make description_n_history text not Varchar(255)
+19.04.2026|COMPLETE|0|999|Remove redundant tables like countries_cities
+19.04.2026|COMPLETE|1|999|Complete all entities
+19.04.2026|TODO|1|2|Make service common interface
+20.04.2026|TODO|1|1|Check if i can change enums type in DB and change if i can
+24.04.2026|TODO|1|1|Create JSON extraction and creation for every entity
+24.04.2026|TODO|4|1|Create photos extraction and insertion for every entity

@@ -26,44 +26,44 @@ public class Brand extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Short id;
+	private short id;
 
-	@Size(max = 50, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 50")
+	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
 	private String short_name;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
+	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
-	@Column(nullable = false, unique = true, length = 250)
-	private String logo;
-
-	@ManyToOne
-	@JoinColumn(name = "country_code",nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "country_code", nullable = false)
 	private Country country;
 
-	@ManyToOne
-	@JoinColumn(name = "concern_id",nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "concern_id", nullable = false)
 	private Concern concern;
 
-	@Column
-	private Integer capitalization;
+	@Column(unique = true)
+	private String logo;
 
 	@Column
-	private Byte grows;
+	private int capitalization;
 
 	@Column
+	private byte grows;
+
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
 	@Column
-	private Integer produced_auto;
+	private int produced_auto;
 
 	@Column
-	private Integer sold_auto;
+	private int sold_auto;
 
-	@OneToMany
+	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Model> models;
 
 	@Override

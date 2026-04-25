@@ -1,10 +1,6 @@
 package ru.yanes.global.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -48,10 +44,10 @@ public class Country extends YanesEntity {
 	@Column(nullable = false, unique = true, length = 250)
 	private String flag;
 
-	@OneToMany
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<City> cities;
 
-	@OneToMany
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Concern> concerns;
 
 	@Override

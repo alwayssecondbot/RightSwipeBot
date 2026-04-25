@@ -1,0 +1,75 @@
+package ru.yanes.users.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import ru.yanes.YanesEntity;
+import ru.yanes.global.entity.Country;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@EqualsAndHashCode(exclude = "id",callSuper = false)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "accounts")
+public class Account extends YanesEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@Column(unique = true, check = {
+			@CheckConstraint(name = "valid_mail", constraint = "mail ~* '^[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$'")
+	},
+	length = 100)
+	private String mail;
+
+	@Column(length = 100, nullable = false, unique = true)
+	private String login;
+
+	@Column(length = 30, unique = true, check = {
+			@CheckConstraint(name = "valid_phone_number", constraint = "phone ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'")
+	})
+	private String phone_number;
+
+	@Column
+	private String full_name;
+
+	@Column
+	private Date birthday;
+
+	@Column(unique = true)
+	private String account_photos;
+
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private boolean is_corporation;
+
+	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	private Date creation_date;
+
+	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIMEZONE")
+	private LocalDateTime last_online;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "country_code", nullable = false)
+	private Country country;
+
+	@Column
+	private Date drive_since;
+
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private boolean is_verified;
+
+	@Override
+	public boolean hasFullView() {
+		return true;
+	}
+
+	@Override
+	public boolean hasShortView() {
+		return false;
+	}
+}

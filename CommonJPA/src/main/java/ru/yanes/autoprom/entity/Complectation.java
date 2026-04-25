@@ -1,7 +1,6 @@
 package ru.yanes.autoprom.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Size;
@@ -12,7 +11,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
+import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
 
 
@@ -27,38 +28,38 @@ public class Complectation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
+	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@ManyToOne
-	@JoinColumn(name = "generation_id",nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "generation_id", nullable = false)
 	private Generation generation;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode light_props;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode antitheft_props;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode interior_props;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode safety_props;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode multimedia_props;
 
-	@Type(JsonBinaryType.class)
-	@Column(columnDefinition = "jsonb", nullable = false)
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "JSONB")
 	private JsonNode exterior_props;
 
 	@Override

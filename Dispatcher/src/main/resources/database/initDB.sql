@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS brands
 
     CONSTRAINT fk_owners
         FOREIGN KEY (owner_id)
-        REFERENCES corporations(id)
+        REFERENCES concerns(id)
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
 
