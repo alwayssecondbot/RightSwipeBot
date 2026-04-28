@@ -39,12 +39,12 @@ public class Concern extends YanesEntity {
 	@Column(unique = true)
 	private String logo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "country_code", nullable = false)
 	private Country country;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "main_brand_id", nullable = false)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false)
+	@JoinColumn(name = "main_brand_id")
 	private Brand main_brand;
 
 	@Column
@@ -57,7 +57,7 @@ public class Concern extends YanesEntity {
 	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@OneToMany(mappedBy = "concern", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "concern", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Brand> brands;
 
 	@Override

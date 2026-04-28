@@ -34,7 +34,7 @@ public class Model extends YanesEntity {
 	@Column(unique = true)
 	private String photos;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "brand_id", nullable = false)
 	private Brand brand;
 
@@ -42,7 +42,7 @@ public class Model extends YanesEntity {
 	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Generation> generations;
 
 	@Override

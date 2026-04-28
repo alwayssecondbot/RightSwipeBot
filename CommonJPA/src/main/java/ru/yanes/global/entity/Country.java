@@ -28,7 +28,6 @@ public class Country extends YanesEntity {
 	@Column(nullable = false, unique = true, length = 3)
 	private String code;
 
-	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")
 	@Column(nullable = false, length = 200)
 	private String full_name;
 
@@ -40,14 +39,13 @@ public class Country extends YanesEntity {
 	@Column(nullable = false, unique = true, length = 3)
 	private String alpha3;
 
-	@Size(max = 250, min = 250, message = "Length of attribute 'name' must be more than 3 and less than 250")
-	@Column(nullable = false, unique = true, length = 250)
+	@Column(unique = true)
 	private String flag;
 
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<City> cities;
 
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Concern> concerns;
 
 	@Override

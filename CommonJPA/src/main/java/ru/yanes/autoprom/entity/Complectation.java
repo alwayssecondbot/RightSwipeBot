@@ -34,8 +34,8 @@ public class Complectation extends YanesEntity {
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "generation_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "generation_id")
 	private Generation generation;
 
 	@JdbcTypeCode(SqlTypes.JSON)

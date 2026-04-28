@@ -27,7 +27,7 @@ public class Engine extends YanesEntity {
 	@Column(unique = true)
 	private String photos;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "engine_parent_id")
 	private Engine engine;
 
@@ -35,9 +35,11 @@ public class Engine extends YanesEntity {
 	private short engine_capacity;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private EngineType engine_type;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private EnginePowerSystem engine_power_systyem;
 
 	@Column
@@ -47,6 +49,7 @@ public class Engine extends YanesEntity {
 	private short engine_torque;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private CylindersPosition cylinders_position;
 
 	@Column
@@ -65,6 +68,7 @@ public class Engine extends YanesEntity {
 	private byte compression_ratio;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private FuelType fuel_type;
 
 	@Column
@@ -74,8 +78,11 @@ public class Engine extends YanesEntity {
 	@Column(columnDefinition = "TEXT")
 	private String review;
 
-	@OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Engine> engines;
+
+	@OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Variation> variations;
 
 	@Override
 	public boolean hasFullView() {

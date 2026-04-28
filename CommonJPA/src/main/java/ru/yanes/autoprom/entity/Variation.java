@@ -26,27 +26,31 @@ public class Variation extends YanesEntity {
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "generation_id",nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "generation_id")
 	private Generation generation;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private BodyType body_type;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private DriveType drive_type;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = true)
 	@JoinColumn(name = "engine_id")
 	private Engine engine;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private EnginePosition engine_position;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private BoostType boost_type;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = true)
 	@JoinColumn(name = "gearbox_id")
 	private Gearbox gearbox;
 

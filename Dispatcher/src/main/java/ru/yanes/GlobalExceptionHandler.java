@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(ObjectNotFoundException.class)
-	public String hanbleObjectNotFound(ObjectNotFoundException ex) {
+	@ExceptionHandler(EntityNotFoundException.class)
+	public String hanbleObjectNotFound(EntityNotFoundException ex) {
 		return ex.getMessage();
 	}
 }

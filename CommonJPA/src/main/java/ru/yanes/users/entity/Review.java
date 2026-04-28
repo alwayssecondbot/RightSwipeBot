@@ -19,11 +19,11 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "reviews")
-public class Reviews extends YanesEntity {
+public class Review extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id", nullable = false)

@@ -7,6 +7,7 @@ import ru.yanes.global.entity.Country;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -31,7 +32,7 @@ public class Account extends YanesEntity {
 	private String login;
 
 	@Column(length = 30, unique = true, check = {
-			@CheckConstraint(name = "valid_phone_number", constraint = "phone ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'")
+			@CheckConstraint(name = "valid_phone_number", constraint = "phone_number ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'")
 	})
 	private String phone_number;
 
@@ -50,11 +51,11 @@ public class Account extends YanesEntity {
 	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
 	private Date creation_date;
 
-	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIMEZONE")
+	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private LocalDateTime last_online;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "country_code", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "country_code")
 	private Country country;
 
 	@Column
@@ -62,6 +63,21 @@ public class Account extends YanesEntity {
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean is_verified;
+
+	@Embedded
+	private Liked liked;
+
+	@Embedded
+	private Favourite favourite;
+
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Offer> offers;
+
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Report> reports;
+
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Review> reviews;
 
 	@Override
 	public boolean hasFullView() {

@@ -35,11 +35,12 @@ public class Generation extends YanesEntity {
 	@Column(unique = true)
 	private String photos;
 
-	@ManyToOne
-	@JoinColumn(name = "model_id",nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "model_id")
 	private Model model;
 
 	@Enumerated
+	@Column(nullable = false, length = 25)
 	private CarClass  car_class;
 
 	@Column
@@ -64,10 +65,10 @@ public class Generation extends YanesEntity {
 	@Column
 	private int price_min;
 
-	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Complectation> complectations;
 
-	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Variation> variations;
 
 	@Override

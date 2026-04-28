@@ -36,12 +36,12 @@ public class Brand extends YanesEntity {
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "country_code", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "country_code")
 	private Country country;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "concern_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "concern_id")
 	private Concern concern;
 
 	@Column(unique = true)
@@ -63,7 +63,7 @@ public class Brand extends YanesEntity {
 	@Column
 	private int sold_auto;
 
-	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Model> models;
 
 	@Override

@@ -29,11 +29,12 @@ public class Gearbox extends YanesEntity {
 	@Column(unique = true)
 	private String photos;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "gearbox_parent_id")
 	private Gearbox gearbox;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 25)
 	private GearboxType gearbox_type;
 
 	@Column
@@ -45,6 +46,9 @@ public class Gearbox extends YanesEntity {
 
 	@OneToMany(mappedBy = "gearbox", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Gearbox> gearboxes;
+
+	@OneToMany(mappedBy = "gearbox", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Variation> variations;
 
 	@Override
 	public boolean hasFullView() {
