@@ -9,6 +9,7 @@ import ru.yanes.YanesEntity;
 
 import java.util.Date;
 
+//Delayed until next times
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class Article extends YanesEntity {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", updatable = false, insertable = false)
 	private Date creation_date;
 
 	@JdbcTypeCode(SqlTypes.JSON)

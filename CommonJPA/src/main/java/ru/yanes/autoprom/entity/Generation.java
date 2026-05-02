@@ -2,6 +2,7 @@ package ru.yanes.autoprom.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,11 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.users.entity.Account;
+import ru.yanes.users.entity.Report;
+import ru.yanes.users.entity.Review;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -21,7 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "complectations")
+@Table(name = "generations")
 public class Generation extends YanesEntity {
 
 	@Id
@@ -41,28 +46,34 @@ public class Generation extends YanesEntity {
 
 	@Enumerated
 	@Column(nullable = false, length = 25)
-	private CarClass  car_class;
+	private CarClass car_class;
 
-	@Column
+	@PositiveOrZero(message = "Field 'year_start' must be more than 1900.")
+	@Column(check = @CheckConstraint(name = "positive_year_start", constraint = "year_start >= 1900 "))
 	private short year_start;
 
-	@Column
+	@PositiveOrZero(message = "Field 'year_stop' must be less than now.")
+	@Column(check = @CheckConstraint(name = "positive_year_stop", constraint = "year_stop <= YEAR(NOW())"))
 	private short year_stop;
 
-	@Column
+	@PositiveOrZero(message = "Field 'produced_auto' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto >= 0"))
 	private int produced_auto;
 
-	@Column
+	@PositiveOrZero(message = "Field 'sold_auto' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto >= 0"))
 	private int sold_auto;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@Column
+	@PositiveOrZero(message = "Field 'price_max' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_price_max", constraint = "price_max >= 0"))
 	private int price_max;
 
-	@Column
+	@PositiveOrZero(message = "Field 'price_min' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_price_min", constraint = "price_min >= 0"))
 	private int price_min;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -70,6 +81,26 @@ public class Generation extends YanesEntity {
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Variation> variations;
+
+	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Report> reports;
+
+	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Review> reviews;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "liked_generations",
+			joinColumns = @JoinColumn(name = "generation_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> liked_accounts = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "favourite_generations",
+			joinColumns = @JoinColumn(name = "generation_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> favourite_accounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {

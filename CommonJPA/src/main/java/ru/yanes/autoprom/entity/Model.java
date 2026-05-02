@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.users.entity.Account;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
@@ -44,6 +46,13 @@ public class Model extends YanesEntity {
 
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Generation> generations;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "liked_models",
+			joinColumns = @JoinColumn(name = "model_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> liked_accounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {

@@ -25,20 +25,20 @@ public class Report extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "account_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "account_id", updatable = false)
 	private Account account;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "generation_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@JoinColumn(name = "generation_id")
 	private Generation generation;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = true)
 	@JoinColumn(name = "variation_id")
 	private Variation variation;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "complectationr_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = true)
+	@JoinColumn(name = "complectation_id")
 	private Complectation complectation;
 
 	@Column(unique = true)
@@ -48,7 +48,7 @@ public class Report extends YanesEntity {
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", updatable = false, insertable = false)
 	private Date creation_date;
 
 	@JdbcTypeCode(SqlTypes.JSON)

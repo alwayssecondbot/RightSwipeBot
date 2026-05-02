@@ -2,12 +2,20 @@ package ru.yanes.autoprom.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.users.entity.Account;
+import ru.yanes.users.entity.Offer;
+import ru.yanes.users.entity.Report;
+import ru.yanes.users.entity.Review;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -22,7 +30,7 @@ public class Variation extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
+	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
 
@@ -74,11 +82,36 @@ public class Variation extends YanesEntity {
 	@Column(columnDefinition = "TEXT")
 	private String description_n_review;
 
-	@Column
+	@PositiveOrZero(message = "Field 'acl_to_100' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_acl_to_100", constraint = "acl_to_100 > 0"))
 	private byte acl_to_100;
 
-	@Column
+	@PositiveOrZero(message = "Field 'fuel_per_100' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_fuel_per_100", constraint = "fuel_per_100 > 0"))
 	private byte fuel_per_100;
+
+	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Report> reports;
+
+	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Review> reviews;
+
+	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Offer> offers;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "liked_variations",
+			joinColumns = @JoinColumn(name = "variation_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> liked_accounts = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "favourite_variations",
+			joinColumns = @JoinColumn(name = "variation_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> favourite_accounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {

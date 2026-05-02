@@ -15,6 +15,10 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
+import ru.yanes.users.entity.Report;
+import ru.yanes.users.entity.Review;
+
+import java.util.Set;
 
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
@@ -61,6 +65,12 @@ public class Complectation extends YanesEntity {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
 	private JsonNode exterior_props;
+
+	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Report> reports;
+
+	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Review> reviews;
 
 	@Override
 	public boolean hasFullView() {

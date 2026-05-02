@@ -22,18 +22,14 @@ public class Account extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(unique = true, check = {
-			@CheckConstraint(name = "valid_mail", constraint = "mail ~* '^[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$'")
-	},
+	@Column(unique = true, check = @CheckConstraint(name = "valid_mail", constraint = "mail ~* '^[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$'"),
 	length = 100)
 	private String mail;
 
-	@Column(length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true, updatable = false)
 	private String login;
 
-	@Column(length = 30, unique = true, check = {
-			@CheckConstraint(name = "valid_phone_number", constraint = "phone_number ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'")
-	})
+	@Column(length = 30, unique = true, check = @CheckConstraint(name = "valid_phone_number", constraint = "phone_number ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'"))
 	private String phone_number;
 
 	@Column
@@ -48,7 +44,7 @@ public class Account extends YanesEntity {
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean is_corporation;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", insertable = false, updatable = false)
 	private Date creation_date;
 
 	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -72,6 +68,9 @@ public class Account extends YanesEntity {
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Offer> offers;
+
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Filter> filters;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Report> reports;

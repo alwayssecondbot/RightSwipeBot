@@ -2,6 +2,7 @@ package ru.yanes.autoprom.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +48,8 @@ public class Brand extends YanesEntity {
 	@Column(unique = true)
 	private String logo;
 
-	@Column
+	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))
 	private int capitalization;
 
 	@Column
@@ -57,10 +59,12 @@ public class Brand extends YanesEntity {
 	@Column(columnDefinition = "TEXT")
 	private String description_n_history;
 
-	@Column
+	@PositiveOrZero(message = "Field 'produced_auto' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto > 0"))
 	private int produced_auto;
 
-	@Column
+	@PositiveOrZero(message = "Field 'sold_auto' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto > 0"))
 	private int sold_auto;
 
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

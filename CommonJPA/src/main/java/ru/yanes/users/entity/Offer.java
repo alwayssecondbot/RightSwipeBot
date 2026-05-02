@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -10,6 +11,8 @@ import ru.yanes.autoprom.entity.Variation;
 import ru.yanes.global.entity.City;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -24,14 +27,14 @@ public class Offer extends YanesEntity{
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "seller_account_id")
+	@JoinColumn(name = "seller_account_id", updatable = false)
 	private Account account;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "city_id")
 	private City city;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "variation_id")
 	private Variation variation;
 
@@ -43,7 +46,8 @@ public class Offer extends YanesEntity{
 	@Column(nullable = false, length = 25)
 	private OfferType offerType;
 
-	@Column(nullable = false)
+	@PositiveOrZero(message = "Field 'price' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_price", constraint = "price >= 0"), nullable = false)
 	private long price;
 
 	@Column(unique = true)
@@ -53,10 +57,10 @@ public class Offer extends YanesEntity{
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", updatable = false, insertable = false)
 	private Date creation_date;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()")
+	@Column(nullable = false)
 	private Date last_update;
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
@@ -65,21 +69,24 @@ public class Offer extends YanesEntity{
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean was_in_accident;
 
-	@Column(nullable = false)
+	@PositiveOrZero(message = "Field 'mileage' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
 	private short mileage;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "vrc_id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	@JoinColumn(name = "vrc_id", updatable = false)
 	private Vrc vrc;
 
-	@Column(nullable = false)
+	@PositiveOrZero(message = "Field 'body_color' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_body_color", constraint = "body_color >= 0"), nullable = false)
 	private byte body_color;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
 	private BodyColorType body_color_type;
 
-	@Column(nullable = false)
+	@PositiveOrZero(message = "Field 'interior_color' must be positive or zero.")
+	@Column(check = @CheckConstraint(name = "positive_interior_color", constraint = "interior_color >= 0"), nullable = false)
 	private byte interior_color;
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
@@ -87,6 +94,13 @@ public class Offer extends YanesEntity{
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean may_change;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "liked_offers",
+			joinColumns = @JoinColumn(name = "offer_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+	)
+	private Set<Account> liked_accounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {

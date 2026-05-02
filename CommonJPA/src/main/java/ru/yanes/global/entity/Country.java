@@ -12,6 +12,7 @@ import lombok.Data;
 
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.entity.Concern;
+import ru.yanes.users.entity.Account;
 
 import java.util.Set;
 
@@ -47,6 +48,9 @@ public class Country extends YanesEntity {
 
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Concern> concerns;
+
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Account> accounts;
 
 	@Override
 	public boolean hasFullView() {

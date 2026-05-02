@@ -2,6 +2,7 @@ package ru.yanes.autoprom.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +48,8 @@ public class Concern extends YanesEntity {
 	@JoinColumn(name = "main_brand_id")
 	private Brand main_brand;
 
-	@Column
+	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))
 	private int capitalization;
 
 	@Column

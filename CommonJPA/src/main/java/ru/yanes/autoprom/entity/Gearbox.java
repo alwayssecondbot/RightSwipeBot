@@ -2,6 +2,7 @@ package ru.yanes.autoprom.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -37,7 +38,8 @@ public class Gearbox extends YanesEntity {
 	@Column(nullable = false, length = 25)
 	private GearboxType gearbox_type;
 
-	@Column
+	@PositiveOrZero(message = "Field 'gear_quantity' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_gear_quantity", constraint = "gear_quantity > 0"))
 	private byte gear_quantity;
 
 	@Lob
