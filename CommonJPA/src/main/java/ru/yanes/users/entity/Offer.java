@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "accounts")
+@Table(name = "offers")
 public class Offer extends YanesEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,8 +73,8 @@ public class Offer extends YanesEntity{
 	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
 	private short mileage;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-	@JoinColumn(name = "vrc_id", updatable = false)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
+	@JoinColumn(name = "vrc_id", updatable = false, check = @CheckConstraint(name = "may_empty_vrc", constraint = "offer_type = 'IMPORT'"))
 	private Vrc vrc;
 
 	@PositiveOrZero(message = "Field 'body_color' must be positive or zero.")
@@ -97,8 +97,8 @@ public class Offer extends YanesEntity{
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_offers",
-			joinColumns = @JoinColumn(name = "offer_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "offer_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> liked_accounts = new HashSet<>();
 

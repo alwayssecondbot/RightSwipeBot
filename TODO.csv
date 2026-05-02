@@ -16,3 +16,4 @@ Date|Type|Difficulty|Priority|Task
 02.05.2026|TODO|4|100|Create way how to show number of produced cars for brands and concerns for every country
 02.05.2026|TODO|3|3|Create way how to form table of variations and its properties
 25.04.2026|COMPLETE|1|999|Mark updatable and insertable
+02.05.2026|COMPLETE|1|999|Create service for every entity

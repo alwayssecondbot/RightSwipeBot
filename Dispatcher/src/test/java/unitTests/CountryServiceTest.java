@@ -8,7 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.yanes.EntityNotFoundException;
 import ru.yanes.global.dao.CountryDAO;
 import ru.yanes.global.entity.Country;
-import ru.yanes.services.CountryService;
+import ru.yanes.global.service.CountryService;
 
 import java.util.Optional;
 

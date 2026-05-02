@@ -53,7 +53,7 @@ public class Generation extends YanesEntity {
 	private short year_start;
 
 	@PositiveOrZero(message = "Field 'year_stop' must be less than now.")
-	@Column(check = @CheckConstraint(name = "positive_year_stop", constraint = "year_stop <= YEAR(NOW())"))
+	@Column(check = @CheckConstraint(name = "positive_year_stop", constraint = "year_stop <= EXTRACT(YEAR FROM NOW())"))
 	private short year_stop;
 
 	@PositiveOrZero(message = "Field 'produced_auto' must be positive or zero.")
@@ -90,15 +90,15 @@ public class Generation extends YanesEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_generations",
-			joinColumns = @JoinColumn(name = "generation_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "generation_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> liked_accounts = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "favourite_generations",
-			joinColumns = @JoinColumn(name = "generation_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "generation_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> favourite_accounts = new HashSet<>();
 

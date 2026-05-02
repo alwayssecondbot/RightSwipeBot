@@ -25,7 +25,7 @@ import java.util.Set;
 public class City extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "country_code")

@@ -49,8 +49,8 @@ public class Model extends YanesEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_models",
-			joinColumns = @JoinColumn(name = "model_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "model_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> liked_accounts = new HashSet<>();
 

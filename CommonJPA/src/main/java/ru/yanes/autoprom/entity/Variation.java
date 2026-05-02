@@ -101,15 +101,15 @@ public class Variation extends YanesEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_variations",
-			joinColumns = @JoinColumn(name = "variation_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "variation_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> liked_accounts = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "favourite_variations",
-			joinColumns = @JoinColumn(name = "variation_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "account_id", updatable = false)
+			joinColumns = @JoinColumn(name = "variation_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
 	private Set<Account> favourite_accounts = new HashSet<>();
 

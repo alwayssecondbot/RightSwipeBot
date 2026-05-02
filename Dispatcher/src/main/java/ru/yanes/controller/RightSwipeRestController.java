@@ -3,7 +3,7 @@ package ru.yanes.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yanes.global.entity.Country;
-import ru.yanes.services.CountryService;
+import ru.yanes.global.service.CountryService;
 
 import java.util.List;
 

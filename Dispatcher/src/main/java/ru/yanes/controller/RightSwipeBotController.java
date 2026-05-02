@@ -1,7 +1,6 @@
 package ru.yanes.controller;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -11,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import ru.yanes.config.Config;
-import ru.yanes.services.CountryService;
+import ru.yanes.global.service.CountryService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

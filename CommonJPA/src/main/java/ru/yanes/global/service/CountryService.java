@@ -1,4 +1,4 @@
-package ru.yanes.services;
+package ru.yanes.global.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,8 @@ public class CountryService {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}
 
-	public Country save(Country country) {
-		return repository.save(country);
+	public Country save(Country object) {
+		return repository.save(object);
 	}
 
 	public List<Country> findAll() {

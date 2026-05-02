@@ -14,7 +14,7 @@ import ru.yanes.YanesEntity;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "accounts")
+@Table(name = "filters")
 public class Filter extends YanesEntity {
 
 	@Id

@@ -32,7 +32,7 @@ public class Vrc extends YanesEntity {
 	@Column(columnDefinition = "JSONB", nullable = false, updatable = false)
 	private JsonNode owners;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "vrc_id", optional = false)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "vrc", optional = false)
 	private Offer offer;
 
 

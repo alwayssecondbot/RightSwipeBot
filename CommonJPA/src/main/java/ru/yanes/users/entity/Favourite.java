@@ -18,15 +18,15 @@ public class Favourite {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "favourite_generations",
-			joinColumns = @JoinColumn(name = "account_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "generation_id", updatable = false)
+			joinColumns = @JoinColumn(name = "account_id"),
+			inverseJoinColumns = @JoinColumn(name = "generation_id")
 	)
 	private Set<Generation> generations = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "favourite_variations",
-			joinColumns = @JoinColumn(name = "account_id", updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "variation_id", updatable = false)
+			joinColumns = @JoinColumn(name = "account_id"),
+			inverseJoinColumns = @JoinColumn(name = "variation_id")
 	)
 	private Set<Variation> variations = new HashSet<>();
 }

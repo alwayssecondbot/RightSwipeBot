@@ -3,26 +3,26 @@ package ru.yanes.users.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.AccountDAO;
-import ru.yanes.users.entity.Account;
+import ru.yanes.users.dao.ArticleDAO;
+import ru.yanes.users.entity.Article;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class AccountService {
+public class ArticleService {
 
-	private final AccountDAO repository;
+	private final ArticleDAO repository;
 
-	public Account findById(long id) {
+	public Article findById(long id) {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}
 
-	public Account save(Account object) {
+	public Article save(Article object) {
 		return repository.save(object);
 	}
 
-	public List<Account> findAll() {
+	public List<Article> findAll() {
 		return repository.findAll();
 	}
 }

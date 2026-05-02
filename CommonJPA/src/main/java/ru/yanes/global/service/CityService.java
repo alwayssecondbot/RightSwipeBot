@@ -1,28 +1,28 @@
-package ru.yanes.users.service;
+package ru.yanes.global.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.AccountDAO;
-import ru.yanes.users.entity.Account;
+import ru.yanes.global.dao.CityDAO;
+import ru.yanes.global.entity.City;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class AccountService {
+public class CityService {
 
-	private final AccountDAO repository;
+	private final CityDAO repository;
 
-	public Account findById(long id) {
+	public City findById(int id) {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}
 
-	public Account save(Account object) {
+	public City save(City object) {
 		return repository.save(object);
 	}
 
-	public List<Account> findAll() {
+	public List<City> findAll() {
 		return repository.findAll();
 	}
 }
