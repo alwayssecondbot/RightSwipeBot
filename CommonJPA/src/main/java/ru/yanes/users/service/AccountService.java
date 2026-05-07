@@ -1,5 +1,6 @@
 package ru.yanes.users.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yanes.EntityNotFoundException;
@@ -14,6 +15,7 @@ public class AccountService {
 
 	private final AccountDAO repository;
 
+	@Transactional
 	public Account findById(long id) {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}

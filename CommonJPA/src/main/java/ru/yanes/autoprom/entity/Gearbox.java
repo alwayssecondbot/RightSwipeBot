@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.enums.GearboxType;
 
 import java.util.Set;
 
@@ -63,5 +64,4 @@ public class Gearbox extends YanesEntity {
 	}
 }
 
-enum GearboxType {AMT, CVT, DCT, MT, TCA}
 //enum GearboxType { BEVEL, HELICAL, PLANETARY, SPUR, WORM}

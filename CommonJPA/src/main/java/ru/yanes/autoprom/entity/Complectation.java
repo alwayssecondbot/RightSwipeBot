@@ -1,6 +1,5 @@
 package ru.yanes.autoprom.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Size;
@@ -12,9 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.records.*;
 import ru.yanes.users.entity.Report;
 import ru.yanes.users.entity.Review;
 
@@ -28,7 +27,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "complectations")
-public class Complectation extends YanesEntity {
+public class Complectation extends YanesEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,27 +43,27 @@ public class Complectation extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode light_props;
+	private LightProps light_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode antitheft_props;
+	private AntitheftProps antitheft_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode interior_props;
+	private InteriorProps interior_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode safety_props;
+	private SafetyProps safety_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode multimedia_props;
+	private MultimediaProps multimedia_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode exterior_props;
+	private ExteriorProps exterior_props;
 
 	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Report> reports;
@@ -82,3 +81,4 @@ public class Complectation extends YanesEntity {
 		return false;
 	}
 }
+

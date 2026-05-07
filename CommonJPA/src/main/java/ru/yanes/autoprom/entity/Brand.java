@@ -23,7 +23,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "brands")
-public class Brand extends YanesEntity {
+public class Brand extends YanesEntity<Short> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

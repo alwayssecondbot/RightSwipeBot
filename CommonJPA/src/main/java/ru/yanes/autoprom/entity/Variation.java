@@ -1,6 +1,5 @@
 package ru.yanes.autoprom.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
@@ -9,6 +8,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.enums.*;
+import ru.yanes.autoprom.records.Rating;
 import ru.yanes.users.entity.Account;
 import ru.yanes.users.entity.Offer;
 import ru.yanes.users.entity.Report;
@@ -64,19 +65,19 @@ public class Variation extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode rating;
+	private Rating rating;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode body_props;
+	private BodyProps body_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode susp_brake_props;
+	private SuspBrakeProps susp_brake_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode other_props;
+	private OtherProps other_props;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -123,17 +124,37 @@ public class Variation extends YanesEntity {
 		return false;
 	}
 }
+@Builder(toBuilder = true)
+record BodyProps (
+		short body_length,
+		short body_width,
+		short body_heigth,
+		short ground_clearanse,
+		short wheel_base,
+		short front_track,
+		short back_track,
+		byte doors_quantity,
+		byte seats_quantity,
+		short curb_weight,
+		short gross_weight,
+		short min_trunk_capacity,
+		short max_trunk_capacity,
+		short tank_capacity
+) {}
 
-enum BodyType { CABRIOLET, COUPE, CONVERTIBLE,
-	CROSSOVER, HATCHBACK, LIMOUSINE,
-	LIFTBACK, MICRO, MINIVAN,
-	MUSCLE,	OFFROAD, PICKUP,
-	ROADSTER, SEDAN, SPORT,
-	SUV, VAN, WAGON
-}
-enum DriveType { FWD, RWD, _4WD, AWD}
-enum EnginePosition { FRONT, CENTER, REAR}
-enum BoostType {TURBOCHARGED, ATMOSPHERIC}
-enum BrakeType {DISC, DRUM, BY_WIRE}
-enum SuspensionType {ACTIVE, SPORT, AIR_SUSPENSION}
-enum WheelOrientationType {LEFT, RIGHT, CENTRAL}
+@Builder(toBuilder = true)
+record SuspBrakeProps(
+		SuspensionType front_suspension_type,
+		SuspensionType back_suspension_type,
+		BrakeType front_brake_type,
+		BrakeType back_brake_type
+){}
+
+@Builder(toBuilder = true)
+record OtherProps (
+		short max_range,
+		WheelOrientationType wheel_orientation,
+		byte eco_class,
+		short fuel_consumption
+) {}
+

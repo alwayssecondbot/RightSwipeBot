@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.records.Rating;
 
 import java.util.Date;
 
@@ -35,7 +36,7 @@ public class Article extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode rating;
+	private Rating rating;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")

@@ -7,6 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.enums.*;
+import ru.yanes.autoprom.records.*;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -15,7 +17,7 @@ import ru.yanes.YanesEntity;
 @Builder
 @Entity
 @Table(name = "filters")
-public class Filter extends YanesEntity {
+public class Filter extends YanesEntity<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,35 +33,35 @@ public class Filter extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode primary_props;
+	private PrimaryProps<?> primary_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode complectation_props;
+	private ComplectationProps complectation_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode offer_props;
+	private OfferProps offer_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode body_props;
+	private BodyProps body_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode engine_props;
+	private EngineProps engine_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode gearbox_props;
+	private GearboxProps gearbox_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode brake_n_susp_props;
+	private BrakeNSuspProps brake_n_susp_props;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode other_props;
+	private OtherProps other_props;
 
 
 	@Override
@@ -72,3 +74,97 @@ public class Filter extends YanesEntity {
 		return true;
 	}
 }
+
+@Builder(toBuilder = true)
+record PrimaryProps<T>(
+	CarModel<T>[] cars,
+	long[] price_range,
+	short[] product_years_range,
+	DriveType[] drive_types,
+	BodyType[] body_types,
+	String[] product_country_codes,
+	byte acl_to_100,
+	byte fuel_per_100
+){}
+
+@Builder(toBuilder = true)
+record CarModel<T>(
+		String type,
+		T id
+) {}
+
+@Builder(toBuilder = true)
+record ComplectationProps(
+	LightProps light_props,
+	AntitheftProps antitheft_props,
+	InteriorProps interior_props,
+	SafetyProps safety_props,
+	MultimediaProps multimedia_props,
+	ExteriorProps exterior_props
+) {}
+
+@Builder(toBuilder = true)
+record OfferProps(
+		byte owners,
+		boolean is_vrc_original,
+		OfferType[] offer_types,
+		boolean was_in_accident,
+		boolean may_be_changed,
+		boolean has_guarantee
+) {}
+
+@Builder(toBuilder = true)
+record BodyProps(
+		short[] body_length_range,
+		short[] body_width_range,
+		short[] body_heigth_range,
+		short[] tank_capacity_range,
+		short[] trunk_capacity_range,
+		byte[] seats_quantity_range,
+		byte[] doors_quantity_range,
+		short[] empty_weight_range,
+		short[] full_weight_range,
+		short[] wheel_base_range,
+		short[] front_track_range,
+		short[] back_track_range,
+		byte[] body_colors,
+		BodyColorType[] color_types
+){}
+
+@Builder(toBuilder = true)
+record EngineProps(
+		short[] power_range,
+		EngineType[] engine_types,
+		BoostType[] boost_types,
+		short[] torque_range,
+		short[] engine_capacity_range,
+		EnginePosition[] engine_positions,
+		FuelType[] fuel_types,
+		EnginePowerSystem[] engine_power_systems,
+		byte[] compression_range,
+		short[] co2_emission_range,
+		CylindersPosition[] cylinders_positions,
+		byte[] cylinders_quantity_range,
+		byte[] valves_per_cylinder_range,
+		short[] cylinders_diameter_range,
+		short[] piston_stroke_range
+) {}
+
+@Builder(toBuilder = true)
+record GearboxProps(
+		GearboxType[] gearbox_types,
+		byte[] gear_quantity_range
+) {}
+
+@Builder(toBuilder = true)
+record BrakeNSuspProps(
+		SuspensionType[] susp_types,
+		BrakeType[] brake_types
+) {}
+
+@Builder(toBuilder = true)
+record OtherProps(
+		short[] full_tank_range,
+		WheelOrientationType[] wheel_orientations,
+		byte[] eco_classes
+) {}

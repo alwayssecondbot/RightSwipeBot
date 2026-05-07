@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.enums.CarClass;
 import ru.yanes.users.entity.Account;
 import ru.yanes.users.entity.Report;
 import ru.yanes.users.entity.Review;
@@ -113,4 +114,3 @@ public class Generation extends YanesEntity {
 	}
 }
 
-enum CarClass { A, B, C, D, E, F, SUV, M, S}

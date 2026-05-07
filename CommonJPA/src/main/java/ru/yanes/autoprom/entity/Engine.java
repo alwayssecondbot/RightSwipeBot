@@ -7,6 +7,11 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import ru.yanes.YanesEntity;
+import ru.yanes.autoprom.enums.CylindersPosition;
+import ru.yanes.autoprom.enums.EnginePowerSystem;
+import ru.yanes.autoprom.enums.EngineType;
+import ru.yanes.autoprom.enums.FuelType;
+
 import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
@@ -105,7 +110,3 @@ public class Engine extends YanesEntity {
 	}
 }
 
-enum CylindersPosition {FLAT, INLINE, V, W}
-enum EnginePowerSystem {DIRECT, INDIRECT}
-enum FuelType {DIESEL, HYBRID, PETROL, ELECTRO, AUTOGAS}
-enum EngineType {WANKEL, ELECTRIC, MULTICYLINDER}

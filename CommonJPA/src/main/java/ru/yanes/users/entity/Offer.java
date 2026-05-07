@@ -8,6 +8,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.entity.Variation;
+import ru.yanes.autoprom.records.*;
 import ru.yanes.global.entity.City;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "offers")
-public class Offer extends YanesEntity{
+public class Offer extends YanesEntity<Long>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -40,7 +41,7 @@ public class Offer extends YanesEntity{
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB", nullable = false)
-	private JsonNode complectation;
+	private Complectation complectation;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
@@ -115,3 +116,14 @@ public class Offer extends YanesEntity{
 
 enum OfferType {IN_STOCK, IMPORT}
 enum BodyColorType {GLOSS, METALLIC, CHROME, CARBON, MATTE, IRIDESCENT, CHAMELEON_FLAKE, COLOR_SHIFT}
+
+@Builder(toBuilder = true)
+record Complectation(
+		int complectation_id,
+		LightProps light_props,
+		AntitheftProps antitheft_props,
+		InteriorProps interior_props,
+		SafetyProps safety_props,
+		MultimediaProps multimedia_props,
+		ExteriorProps exterior_props
+) {}

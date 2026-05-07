@@ -1,6 +1,5 @@
 package ru.yanes.users.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -8,6 +7,7 @@ import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.entity.Complectation;
 import ru.yanes.autoprom.entity.Generation;
+import ru.yanes.autoprom.records.Rating;
 import ru.yanes.autoprom.entity.Variation;
 
 import java.util.Date;
@@ -53,7 +53,7 @@ public class Report extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private JsonNode entity_list;
+	private Rating rating;
 
 	@Override
 	public boolean hasFullView() {
