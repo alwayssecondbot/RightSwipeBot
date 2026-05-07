@@ -27,7 +27,7 @@ public class Model extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private short id;
+	private int id;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)

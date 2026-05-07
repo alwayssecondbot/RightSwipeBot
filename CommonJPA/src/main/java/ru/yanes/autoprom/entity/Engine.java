@@ -30,9 +30,6 @@ public class Engine extends YanesEntity {
 	@Column(nullable = false, unique = true)
 	private String full_name;
 
-	@Column(unique = true)
-	private String photos;
-
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "engine_parent_id")
 	private Engine engine;
@@ -92,6 +89,9 @@ public class Engine extends YanesEntity {
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String review;
+
+	@OneToMany(mappedBy = "engine", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<EnginePhoto> photos;
 
 	@OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Engine> engines;

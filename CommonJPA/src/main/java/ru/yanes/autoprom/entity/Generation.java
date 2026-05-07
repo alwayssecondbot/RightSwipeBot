@@ -32,14 +32,11 @@ public class Generation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private short id;
+	private int id;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String full_name;
-
-	@Column(unique = true)
-	private String photos;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "model_id")
@@ -89,6 +86,9 @@ public class Generation extends YanesEntity {
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Review> reviews;
 
+	@OneToMany(mappedBy = "generation", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<GenerationPhoto> photos;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_generations",
 			joinColumns = @JoinColumn(name = "generation_id"),
@@ -103,6 +103,8 @@ public class Generation extends YanesEntity {
 	)
 	private Set<Account> favourite_accounts = new HashSet<>();
 
+
+
 	@Override
 	public boolean hasFullView() {
 		return true;
@@ -113,4 +115,5 @@ public class Generation extends YanesEntity {
 		return true;
 	}
 }
+
 

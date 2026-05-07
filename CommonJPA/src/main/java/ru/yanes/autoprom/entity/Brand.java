@@ -23,7 +23,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "brands")
-public class Brand extends YanesEntity<Short> {
+public class Brand extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class Brand extends YanesEntity<Short> {
 	private Concern concern;
 
 	@Column(unique = true)
-	private String logo;
+	private String logo_url;
 
 	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))

@@ -1,6 +1,5 @@
 package ru.yanes.users.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
@@ -22,7 +21,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "offers")
-public class Offer extends YanesEntity<Long>{
+public class Offer extends YanesEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -50,9 +49,6 @@ public class Offer extends YanesEntity<Long>{
 	@PositiveOrZero(message = "Field 'price' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price", constraint = "price >= 0"), nullable = false)
 	private long price;
-
-	@Column(unique = true)
-	private String photos;
 
 	@Lob
 	@Column(nullable = false, columnDefinition = "TEXT")
@@ -95,6 +91,9 @@ public class Offer extends YanesEntity<Long>{
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean may_change;
+
+	@OneToMany(mappedBy = "offer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<OfferPhoto> photos;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "liked_offers",

@@ -9,6 +9,7 @@ import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.records.Rating;
 
 import java.util.Date;
+import java.util.Set;
 
 //Delayed until next times
 @EqualsAndHashCode(exclude = "id",callSuper = false)
@@ -24,9 +25,6 @@ public class Article extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(unique = true)
-	private String photos;
-
 	@Lob
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
@@ -41,6 +39,9 @@ public class Article extends YanesEntity {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
 	private JsonNode entity_list;
+
+	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<ArticlePhoto> photos;
 
 	@Override
 	public boolean hasFullView() {

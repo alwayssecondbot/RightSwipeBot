@@ -39,7 +39,7 @@ public class Account extends YanesEntity {
 	private Date birthday;
 
 	@Column(unique = true)
-	private String account_photos;
+	private String photo_url;
 
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean is_corporation;

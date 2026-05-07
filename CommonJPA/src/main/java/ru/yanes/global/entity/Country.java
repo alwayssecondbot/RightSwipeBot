@@ -41,7 +41,7 @@ public class Country extends YanesEntity {
 	private String alpha3;
 
 	@Column(unique = true)
-	private String flag;
+	private String flag_url;
 
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<City> cities;

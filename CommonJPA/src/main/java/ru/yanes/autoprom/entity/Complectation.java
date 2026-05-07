@@ -27,7 +27,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "complectations")
-public class Complectation extends YanesEntity<Integer> {
+public class Complectation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -38,7 +38,7 @@ public class Concern extends YanesEntity {
 	private String full_name;
 
 	@Column(unique = true)
-	private String logo;
+	private String logo_url;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "country_code", nullable = false)

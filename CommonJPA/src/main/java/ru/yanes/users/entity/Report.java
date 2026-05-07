@@ -11,6 +11,7 @@ import ru.yanes.autoprom.records.Rating;
 import ru.yanes.autoprom.entity.Variation;
 
 import java.util.Date;
+import java.util.Set;
 
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
@@ -41,9 +42,6 @@ public class Report extends YanesEntity {
 	@JoinColumn(name = "complectation_id")
 	private Complectation complectation;
 
-	@Column(unique = true)
-	private String photos;
-
 	@Lob
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
@@ -54,6 +52,9 @@ public class Report extends YanesEntity {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
 	private Rating rating;
+
+	@OneToMany(mappedBy = "report", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<ReportPhoto> photos;
 
 	@Override
 	public boolean hasFullView() {
