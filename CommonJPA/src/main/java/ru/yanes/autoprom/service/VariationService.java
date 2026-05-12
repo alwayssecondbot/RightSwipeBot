@@ -1,28 +1,20 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.VaritationDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Variation;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class VariationService {
+public interface VariationService extends YanesService<Variation,Integer> {
+	@Override
+	Variation findById(Integer id);
 
-	private final VaritationDAO repository;
+	@Override
+	Variation save(Variation object);
 
-	public Variation findById(int id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Variation> findAll();
 
-	public Variation save(Variation object) {
-		return repository.save(object);
-	}
-
-	public List<Variation> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Integer id);
 }

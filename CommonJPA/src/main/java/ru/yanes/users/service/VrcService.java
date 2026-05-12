@@ -1,28 +1,20 @@
 package ru.yanes.users.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.VrcDAO;
+import ru.yanes.YanesService;
 import ru.yanes.users.entity.Vrc;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class VrcService {
+public interface VrcService extends YanesService<Vrc, Long> {
+	@Override
+	Vrc findById(Long id);
 
-	private final VrcDAO repository;
+	@Override
+	Vrc save(Vrc object);
 
-	public Vrc findById(long id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Vrc> findAll();
 
-	public Vrc save(Vrc object) {
-		return repository.save(object);
-	}
-
-	public List<Vrc> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Long id);
 }

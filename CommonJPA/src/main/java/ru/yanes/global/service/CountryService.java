@@ -1,28 +1,20 @@
 package ru.yanes.global.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.global.dao.CountryDAO;
+import ru.yanes.YanesService;
 import ru.yanes.global.entity.Country;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class CountryService {
+public interface CountryService extends YanesService<Country,String> {
+	@Override
+	Country findById(String id);
 
-	private final CountryDAO repository;
+	@Override
+	Country save(Country object);
 
-	public Country findById(String id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Country> findAll();
 
-	public Country save(Country object) {
-		return repository.save(object);
-	}
-
-	public List<Country> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(String id);
 }

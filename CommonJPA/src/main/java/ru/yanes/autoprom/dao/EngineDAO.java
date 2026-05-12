@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository;
 import ru.yanes.autoprom.entity.Engine;
 
 @Repository
-public interface EngineDAO extends JpaRepository<Engine, Short> {}
+public interface EngineDAO extends JpaRepository<Engine, Integer> {}

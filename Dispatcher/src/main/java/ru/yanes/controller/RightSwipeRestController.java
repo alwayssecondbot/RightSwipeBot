@@ -3,7 +3,7 @@ package ru.yanes.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yanes.global.entity.Country;
-import ru.yanes.global.service.CountryService;
+import ru.yanes.global.service.impl.CountryServiceImpl;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @RequestMapping("/api/countries")
 public class RightSwipeRestController {
 
-	private final CountryService countryService;
+	private final CountryServiceImpl countryService;
 
-	public RightSwipeRestController(CountryService countryService) {
+	public RightSwipeRestController(CountryServiceImpl countryService) {
 		this.countryService = countryService;
 	}
 

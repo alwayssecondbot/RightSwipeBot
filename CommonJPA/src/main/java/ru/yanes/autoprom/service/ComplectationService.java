@@ -1,28 +1,21 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.ComplectationDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Complectation;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class ComplectationService {
+public interface ComplectationService extends YanesService<Complectation,Integer> {
 
-	private final ComplectationDAO repository;
+	@Override
+	Complectation findById(Integer id);
 
-	public Complectation findById(int id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	Complectation save(Complectation object);
 
-	public Complectation save(Complectation object) {
-		return repository.save(object);
-	}
+	@Override
+	List<Complectation> findAll();
 
-	public List<Complectation> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Integer id);
 }

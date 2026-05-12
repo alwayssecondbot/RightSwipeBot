@@ -10,4 +10,7 @@ public class EntityNotFoundException extends RuntimeException{
 	public EntityNotFoundException(long id) {
 		super("Object not found with id:" + id);
 	}
+	public EntityNotFoundException(short id) {
+		super("Object not found with id:" + id);
+	}
 }

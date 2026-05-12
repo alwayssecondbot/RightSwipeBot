@@ -8,14 +8,15 @@ Date|Type|Difficulty|Priority|Task
 19.04.2026|TODO|1|2|Make service common interface
 20.04.2026|COMPLETE|1|999|Check if i can change enums type in DB and change if i can
 24.04.2026|COMPLETE|1|999|Create JSON extraction and creation for every entity
-24.04.2026|TODO|4|1|Create photos extraction and insertion controller
+24.04.2026|TODO|4|100|Create photos extraction and insertion controller
 25.04.2026|COMPLETE|1|999|Make all number fields positive
 25.04.2026|COMPLETE|1|999|Add cascade type to all relates
-25.04.2026|TODO|1|3|"make ""optional = false"" all manytoone and onetoone relations"
-02.05.2026|TODO|3|1|Create way how to form list for popular and recommendations
+25.04.2026|TODO|1|999|"make ""optional = false"" all manytoone and onetoone relations"
+02.05.2026|TODO|3|3|Create way how to form list for popular and recommendations
 02.05.2026|TODO|4|100|Create way how to show number of produced cars for brands and concerns for every country
 02.05.2026|TODO|3|3|Create way how to form table of variations and its properties
 25.04.2026|COMPLETE|1|999|Mark updatable and insertable
 02.05.2026|COMPLETE|1|999|Create service for every entity
-02.05.2026|TODO|0|2|"Mark as ""transactional"" every find method in service for entities with LAZY fetch"
+02.05.2026|TODO|0|999|"Mark as ""transactional"" every find method in service for entities with LAZY fetch"
 07.05.2026|COMPLETE|1|999|Create tables with multiple photos for each entity
+12.05.2026|TODO|1|999|create services and DAOs for all photos

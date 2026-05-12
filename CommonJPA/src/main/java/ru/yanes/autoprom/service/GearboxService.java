@@ -1,28 +1,20 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.GearboxDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Gearbox;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class GearboxService {
+public interface GearboxService extends YanesService<Gearbox, Integer> {
+	@Override
+	Gearbox findById(Integer id);
 
-	private final GearboxDAO repository;
+	@Override
+	Gearbox save(Gearbox object);
 
-	public Gearbox findById(int id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Gearbox> findAll();
 
-	public Gearbox save(Gearbox object) {
-		return repository.save(object);
-	}
-
-	public List<Gearbox> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Integer id);
 }

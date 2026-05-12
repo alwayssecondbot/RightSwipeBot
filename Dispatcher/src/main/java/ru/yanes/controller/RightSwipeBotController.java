@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import ru.yanes.config.Config;
-import ru.yanes.global.service.CountryService;
+import ru.yanes.global.service.impl.CountryServiceImpl;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class RightSwipeBotController extends TelegramLongPollingBot {
     private final Config config;
-    private final CountryService countryService;
+    private final CountryServiceImpl countryService;
 
     @Override
     public String getBotUsername() {

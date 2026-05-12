@@ -1,30 +1,20 @@
 package ru.yanes.users.service;
 
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.AccountDAO;
+import ru.yanes.YanesService;
 import ru.yanes.users.entity.Account;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class AccountService {
+public interface AccountService extends YanesService<Account, Long> {
+	@Override
+	Account findById(Long id);
 
-	private final AccountDAO repository;
+	@Override
+	Account save(Account object);
 
-	@Transactional
-	public Account findById(long id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Account> findAll();
 
-	public Account save(Account object) {
-		return repository.save(object);
-	}
-
-	public List<Account> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Long id);
 }

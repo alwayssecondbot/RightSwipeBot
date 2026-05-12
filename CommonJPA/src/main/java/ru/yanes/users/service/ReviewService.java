@@ -1,28 +1,20 @@
 package ru.yanes.users.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.ReviewDAO;
+import ru.yanes.YanesService;
 import ru.yanes.users.entity.Review;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class ReviewService {
+public interface ReviewService extends YanesService<Review, Long> {
+	@Override
+	Review findById(Long id);
 
-	private final ReviewDAO repository;
+	@Override
+	Review save(Review object);
 
-	public Review findById(long id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Review> findAll();
 
-	public Review save(Review object) {
-		return repository.save(object);
-	}
-
-	public List<Review> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Long id);
 }

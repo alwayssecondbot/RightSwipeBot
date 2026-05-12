@@ -1,28 +1,20 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.EngineDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Engine;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class EngineService {
+public interface EngineService extends YanesService<Engine, Integer> {
+	@Override
+	Engine findById(Integer id);
 
-	private final EngineDAO repository;
+	@Override
+	Engine save(Engine object);
 
-	public Engine findById(short id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Engine> findAll();
 
-	public Engine save(Engine object) {
-		return repository.save(object);
-	}
-
-	public List<Engine> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Integer id);
 }

@@ -1,28 +1,21 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.BrandDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Brand;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class BrandService {
+public interface BrandService extends YanesService<Brand,Short> {
 
-	private final BrandDAO repository;
+	@Override
+	Brand findById(Short id);
 
-	public Brand findById(short id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	Brand save(Brand object);
 
-	public Brand save(Brand object) {
-		return repository.save(object);
-	}
+	@Override
+	List<Brand> findAll();
 
-	public List<Brand> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Short id);
 }

@@ -1,28 +1,20 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.ConcernDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Concern;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class ConcernService {
+public interface ConcernService extends YanesService<Concern, Short> {
+	@Override
+	Concern findById(Short id);
 
-	private final ConcernDAO repository;
+	@Override
+	Concern save(Concern object);
 
-	public Concern findById(short id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Concern> findAll();
 
-	public Concern save(Concern object) {
-		return repository.save(object);
-	}
-
-	public List<Concern> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Short id);
 }

@@ -8,7 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.yanes.EntityNotFoundException;
 import ru.yanes.global.dao.CountryDAO;
 import ru.yanes.global.entity.Country;
-import ru.yanes.global.service.CountryService;
+import ru.yanes.global.service.impl.CountryServiceImpl;
 
 import java.util.Optional;
 
@@ -23,7 +23,7 @@ public class CountryServiceTest {
 	private CountryDAO repository;
 
 	@InjectMocks
-	private CountryService service;
+	private CountryServiceImpl service;
 
 	Country country = Country.builder()
 			.code("999")

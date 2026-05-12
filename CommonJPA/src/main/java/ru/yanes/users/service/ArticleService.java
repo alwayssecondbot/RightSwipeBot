@@ -1,28 +1,20 @@
 package ru.yanes.users.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.ArticleDAO;
+import ru.yanes.YanesService;
 import ru.yanes.users.entity.Article;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class ArticleService {
+public interface ArticleService extends YanesService<Article, Long> {
+	@Override
+	Article findById(Long id);
 
-	private final ArticleDAO repository;
+	@Override
+	Article save(Article object);
 
-	public Article findById(long id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Article> findAll();
 
-	public Article save(Article object) {
-		return repository.save(object);
-	}
-
-	public List<Article> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Long id);
 }

@@ -17,7 +17,7 @@ import ru.yanes.autoprom.records.*;
 @Builder
 @Entity
 @Table(name = "filters")
-public class Filter extends YanesEntity<Long> {
+public class Filter extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

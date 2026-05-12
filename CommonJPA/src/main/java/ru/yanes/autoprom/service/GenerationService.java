@@ -1,28 +1,20 @@
 package ru.yanes.autoprom.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.autoprom.dao.GenerationDAO;
+import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Generation;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class GenerationService {
+public interface GenerationService extends YanesService<Generation, Integer> {
+	@Override
+	Generation findById(Integer id);
 
-	private final GenerationDAO repository;
+	@Override
+	Generation save(Generation object);
 
-	public Generation findById(int id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Generation> findAll();
 
-	public Generation save(Generation object) {
-		return repository.save(object);
-	}
-
-	public List<Generation> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Integer id);
 }

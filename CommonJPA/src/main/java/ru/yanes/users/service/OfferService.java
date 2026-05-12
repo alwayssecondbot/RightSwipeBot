@@ -1,28 +1,20 @@
 package ru.yanes.users.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.yanes.EntityNotFoundException;
-import ru.yanes.users.dao.OfferDAO;
+import ru.yanes.YanesService;
 import ru.yanes.users.entity.Offer;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class OfferService {
+public interface OfferService extends YanesService<Offer, Long> {
+	@Override
+	Offer findById(Long id);
 
-	private final OfferDAO repository;
+	@Override
+	Offer save(Offer object);
 
-	public Offer findById(long id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-	}
+	@Override
+	List<Offer> findAll();
 
-	public Offer save(Offer object) {
-		return repository.save(object);
-	}
-
-	public List<Offer> findAll() {
-		return repository.findAll();
-	}
+	@Override
+	void deleteById(Long id);
 }
