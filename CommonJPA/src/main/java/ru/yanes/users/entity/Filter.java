@@ -29,39 +29,39 @@ public class Filter extends YanesEntity {
 
 	@Size(max = 50, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 50)
-	private String full_name;
+	private String fullName;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private PrimaryProps<?> primary_props;
+	private PrimaryProps<?> primaryProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private ComplectationProps complectation_props;
+	private ComplectationProps complectationProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private OfferProps offer_props;
+	private OfferProps offerProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private BodyProps body_props;
+	private BodyProps bodyProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private EngineProps engine_props;
+	private EngineProps engineProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private GearboxProps gearbox_props;
+	private GearboxProps gearboxProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private BrakeNSuspProps brake_n_susp_props;
+	private BrakeNSuspProps brakeNSuspProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private OtherProps other_props;
+	private OtherProps otherProps;
 
 
 	@Override
@@ -78,13 +78,13 @@ public class Filter extends YanesEntity {
 @Builder(toBuilder = true)
 record PrimaryProps<T>(
 	CarModel<T>[] cars,
-	long[] price_range,
-	short[] product_years_range,
-	DriveType[] drive_types,
-	BodyType[] body_types,
-	String[] product_country_codes,
-	byte acl_to_100,
-	byte fuel_per_100
+	long[] priceRange,
+	short[] productYearsRange,
+	DriveType[] driveTypes,
+	BodyType[] bodyTypes,
+	String[] productCountryCodes,
+	byte aclTo_100,
+	byte fuelPer_100
 ){}
 
 @Builder(toBuilder = true)
@@ -95,76 +95,76 @@ record CarModel<T>(
 
 @Builder(toBuilder = true)
 record ComplectationProps(
-	LightProps light_props,
-	AntitheftProps antitheft_props,
-	InteriorProps interior_props,
-	SafetyProps safety_props,
-	MultimediaProps multimedia_props,
-	ExteriorProps exterior_props
+	LightProps lightProps,
+	AntitheftProps antitheftProps,
+	InteriorProps interiorProps,
+	SafetyProps safetyProps,
+	MultimediaProps multimediaProps,
+	ExteriorProps exteriorProps
 ) {}
 
 @Builder(toBuilder = true)
 record OfferProps(
 		byte owners,
-		boolean is_vrc_original,
-		OfferType[] offer_types,
-		boolean was_in_accident,
-		boolean may_be_changed,
-		boolean has_guarantee
+		boolean isVrcOriginal,
+		OfferType[] offerTypes,
+		boolean wasInAccident,
+		boolean mayBeChanged,
+		boolean hasGuarantee
 ) {}
 
 @Builder(toBuilder = true)
 record BodyProps(
-		short[] body_length_range,
-		short[] body_width_range,
-		short[] body_heigth_range,
-		short[] tank_capacity_range,
-		short[] trunk_capacity_range,
-		byte[] seats_quantity_range,
-		byte[] doors_quantity_range,
-		short[] empty_weight_range,
-		short[] full_weight_range,
-		short[] wheel_base_range,
-		short[] front_track_range,
-		short[] back_track_range,
-		byte[] body_colors,
-		BodyColorType[] color_types
+		short[] bodyLengthRange,
+		short[] bodyWidthRange,
+		short[] bodyHeightRange,
+		short[] tankCapacityRange,
+		short[] trunkCapacityRange,
+		byte[] seatsQuantityRange,
+		byte[] doorsQuantityRange,
+		short[] emptyWeightRange,
+		short[] fullWeightRange,
+		short[] wheelBaseRange,
+		short[] frontTrackRange,
+		short[] backTrackRange,
+		byte[] bodyColors,
+		BodyColorType[] colorTypes
 ){}
 
 @Builder(toBuilder = true)
 record EngineProps(
-		short[] power_range,
-		EngineType[] engine_types,
-		BoostType[] boost_types,
-		short[] torque_range,
-		short[] engine_capacity_range,
-		EnginePosition[] engine_positions,
-		FuelType[] fuel_types,
-		EnginePowerSystem[] engine_power_systems,
-		byte[] compression_range,
-		short[] co2_emission_range,
-		CylindersPosition[] cylinders_positions,
-		byte[] cylinders_quantity_range,
-		byte[] valves_per_cylinder_range,
-		short[] cylinders_diameter_range,
-		short[] piston_stroke_range
+		short[] powerRange,
+		EngineType[] engineTypes,
+		BoostType[] boostTypes,
+		short[] torqueRange,
+		short[] engineCapacityRange,
+		EnginePosition[] enginePositions,
+		FuelType[] fuelTypes,
+		EnginePowerSystem[] enginePowerSystems,
+		byte[] compressionRange,
+		short[] co2EmissionRange,
+		CylindersPosition[] cylindersPositions,
+		byte[] cylindersQuantityRange,
+		byte[] valvesPerCylinderRange,
+		short[] cylindersDiameterRange,
+		short[] pistonStrokeRange
 ) {}
 
 @Builder(toBuilder = true)
 record GearboxProps(
-		GearboxType[] gearbox_types,
-		byte[] gear_quantity_range
+		GearboxType[] gearboxTypes,
+		byte[] gearQuantityRange
 ) {}
 
 @Builder(toBuilder = true)
 record BrakeNSuspProps(
-		SuspensionType[] susp_types,
-		BrakeType[] brake_types
+		SuspensionType[] suspTypes,
+		BrakeType[] brakeTypes
 ) {}
 
 @Builder(toBuilder = true)
 record OtherProps(
-		short[] full_tank_range,
-		WheelOrientationType[] wheel_orientations,
-		byte[] eco_classes
+		short[] fullTankRange,
+		WheelOrientationType[] wheelOrientations,
+		byte[] ecoClasses
 ) {}

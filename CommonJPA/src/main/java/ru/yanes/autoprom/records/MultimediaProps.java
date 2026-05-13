@@ -5,15 +5,15 @@ import lombok.Builder;
 @Builder(toBuilder = true)
 public record MultimediaProps(
 		boolean aux,
-		boolean android_auto,
+		boolean androidAuto,
 		boolean carplay,
 		boolean usb,
-		boolean voice_control,
-		boolean backseat_multimedia,
-		boolean lcd_screen,
-		boolean navigation_system,
-		boolean socket_12v,
-		boolean socket_220v,
-		boolean yandex_auto
+		boolean voiceControl,
+		boolean backseatMultimedia,
+		boolean lcdScreen,
+		boolean navigationSystem,
+		boolean socket12v,
+		boolean socket220v,
+		boolean yandexAuto
 ) {
 }

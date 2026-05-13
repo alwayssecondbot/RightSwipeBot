@@ -33,7 +33,7 @@ public class City extends YanesEntity {
 
 	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")
 	@Column(nullable = false, length = 200)
-	private String full_name;
+	private String fullName;
 
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Offer> offers;

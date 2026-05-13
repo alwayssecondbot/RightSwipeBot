@@ -26,19 +26,19 @@ public class Gearbox extends YanesEntity {
 
 	@Size(max = 255, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 255")
 	@Column(nullable = false, unique = true)
-	private String full_name;
+	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "gearbox_parent_id")
+	@JoinColumn(name = "parent_id")
 	private Gearbox gearbox;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private GearboxType gearbox_type;
+	private GearboxType type;
 
 	@PositiveOrZero(message = "Field 'gear_quantity' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_gear_quantity", constraint = "gear_quantity > 0"))
-	private byte gear_quantity;
+	private byte gearQuantity;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -55,7 +55,7 @@ public class Gearbox extends YanesEntity {
 
 	@Override
 	public boolean hasFullView() {
-		return false;
+		return true;
 	}
 
 	@Override

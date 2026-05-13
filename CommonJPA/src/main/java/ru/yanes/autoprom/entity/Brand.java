@@ -31,11 +31,11 @@ public class Brand extends YanesEntity {
 
 	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
-	private String short_name;
+	private String shortName;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
-	private String full_name;
+	private String fullName;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "country_code")
@@ -46,7 +46,7 @@ public class Brand extends YanesEntity {
 	private Concern concern;
 
 	@Column(unique = true)
-	private String logo_url;
+	private String logoUrl;
 
 	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))
@@ -57,15 +57,15 @@ public class Brand extends YanesEntity {
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
-	private String description_n_history;
+	private String descriptionHistory;
 
 	@PositiveOrZero(message = "Field 'produced_auto' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto > 0"))
-	private int produced_auto;
+	private int producedAuto;
 
 	@PositiveOrZero(message = "Field 'sold_auto' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto > 0"))
-	private int sold_auto;
+	private int soldAuto;
 
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Model> models;

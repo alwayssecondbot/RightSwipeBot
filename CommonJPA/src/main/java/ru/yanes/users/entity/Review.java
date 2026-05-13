@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
@@ -46,8 +47,9 @@ public class Review extends YanesEntity {
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", updatable = false, insertable = false)
-	private Date creation_date;
+	@Column(nullable = false, columnDefinition = "DATE", updatable = false, insertable = false)
+	@ColumnDefault("NOW()")
+	private Date creationDate;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")

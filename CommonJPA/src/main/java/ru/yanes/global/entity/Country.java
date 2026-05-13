@@ -30,7 +30,7 @@ public class Country extends YanesEntity {
 	private String code;
 
 	@Column(nullable = false, length = 200)
-	private String full_name;
+	private String fullName;
 
 	@Pattern(regexp = "[a-zA-Z]{2}", message = "There must be only 2 symbols in attribute 'alpha2'.")
 	@Column(nullable = false, unique = true, length = 2)
@@ -41,7 +41,7 @@ public class Country extends YanesEntity {
 	private String alpha3;
 
 	@Column(unique = true)
-	private String flag_url;
+	private String flagUrl;
 
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<City> cities;

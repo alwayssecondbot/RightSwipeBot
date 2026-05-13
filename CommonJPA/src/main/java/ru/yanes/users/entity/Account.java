@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import ru.yanes.YanesEntity;
 import ru.yanes.global.entity.Country;
 
@@ -30,35 +31,38 @@ public class Account extends YanesEntity {
 	private String login;
 
 	@Column(length = 30, unique = true, check = @CheckConstraint(name = "valid_phone_number", constraint = "phone_number ~ '^\\+[1-9]{1,9} \\([0-9]{3}\\) [0-9]{7}$'"))
-	private String phone_number;
+	private String phoneNumber;
 
 	@Column
-	private String full_name;
+	private String fullName;
 
 	@Column
 	private Date birthday;
 
 	@Column(unique = true)
-	private String photo_url;
+	private String photoUrl;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean is_corporation;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isCorporation;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", insertable = false, updatable = false)
-	private Date creation_date;
+	@Column(nullable = false, columnDefinition = "DATE", insertable = false, updatable = false)
+	@ColumnDefault("NOW()")
+	private Date creationDate;
 
 	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private LocalDateTime last_online;
+	private LocalDateTime lastOnline;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "country_code")
 	private Country country;
 
 	@Column
-	private Date drive_since;
+	private Date driveSince;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean is_verified;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isVerified;
 
 	@Embedded
 	private Liked liked;

@@ -31,7 +31,7 @@ public class Model extends YanesEntity {
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
-	private String full_name;
+	private String fullName;
 
 	@Column(unique = true)
 	private String photos;
@@ -42,7 +42,7 @@ public class Model extends YanesEntity {
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
-	private String description_n_history;
+	private String descriptionHistory;
 
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Generation> generations;
@@ -52,7 +52,7 @@ public class Model extends YanesEntity {
 			joinColumns = @JoinColumn(name = "model_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
-	private Set<Account> liked_accounts = new HashSet<>();
+	private Set<Account> likedAccounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {

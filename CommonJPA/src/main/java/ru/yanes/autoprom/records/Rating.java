@@ -4,11 +4,11 @@ import lombok.Builder;
 
 @Builder(toBuilder = true)
 public record Rating(
-	byte interior_comfort,
+	byte interiorComfort,
 	byte capacity,
 	byte dynamic,
-	byte for_family,
-	byte for_offroads,
+	byte forFamily,
+	byte forOffroad,
 	byte representative,
 	byte compactness,
 	byte advancedness

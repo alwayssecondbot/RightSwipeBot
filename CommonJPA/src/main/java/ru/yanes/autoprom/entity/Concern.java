@@ -31,14 +31,14 @@ public class Concern extends YanesEntity {
 
 	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
-	private String short_name;
+	private String shortName;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
-	private String full_name;
+	private String fullName;
 
 	@Column(unique = true)
-	private String logo_url;
+	private String logoUrl;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "country_code", nullable = false)
@@ -46,7 +46,7 @@ public class Concern extends YanesEntity {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false)
 	@JoinColumn(name = "main_brand_id")
-	private Brand main_brand;
+	private Brand mainBrand;
 
 	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))
@@ -57,7 +57,7 @@ public class Concern extends YanesEntity {
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
-	private String description_n_history;
+	private String descriptionHistory;
 
 	@OneToMany(mappedBy = "concern", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Brand> brands;

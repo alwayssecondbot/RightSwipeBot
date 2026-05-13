@@ -23,10 +23,10 @@ public class Vrc extends YanesEntity {
 	private long id;
 
 	@Column(nullable = false, updatable = false)
-	private boolean is_original;
+	private boolean isOriginal;
 
-	@Column(nullable = false, updatable = false)
-	private Date produced_date;
+	@Column(nullable = false, columnDefinition = "DATE", updatable = false)
+	private Date producedDate;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB", nullable = false, updatable = false)

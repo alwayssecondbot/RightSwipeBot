@@ -3,6 +3,7 @@ package ru.yanes.users.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
@@ -54,17 +55,20 @@ public class Offer extends YanesEntity{
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 
-	@Column(nullable = false, columnDefinition = "DATE DEFAULT NOW()", updatable = false, insertable = false)
-	private Date creation_date;
+	@Column(nullable = false, columnDefinition = "DATE", updatable = false, insertable = false)
+	@ColumnDefault("NOW()")
+	private Date creationDate;
 
 	@Column(nullable = false)
-	private Date last_update;
+	private Date lastUpdate;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-	private boolean is_actual;
+	@Column(nullable = false)
+	@ColumnDefault("TRUE")
+	private boolean isActual;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean was_in_accident;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean wasInAccident;
 
 	@PositiveOrZero(message = "Field 'mileage' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
@@ -76,21 +80,23 @@ public class Offer extends YanesEntity{
 
 	@PositiveOrZero(message = "Field 'body_color' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_body_color", constraint = "body_color >= 0"), nullable = false)
-	private byte body_color;
+	private byte bodyColor;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private BodyColorType body_color_type;
+	private BodyColorType bodyColorType;
 
 	@PositiveOrZero(message = "Field 'interior_color' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_interior_color", constraint = "interior_color >= 0"), nullable = false)
-	private byte interior_color;
+	private byte interiorColor;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean has_guarantee;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean hasGuarantee;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean may_change;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean mayChange;
 
 	@OneToMany(mappedBy = "offer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<OfferPhoto> photos;
@@ -100,7 +106,7 @@ public class Offer extends YanesEntity{
 			joinColumns = @JoinColumn(name = "offer_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
-	private Set<Account> liked_accounts = new HashSet<>();
+	private Set<Account> likedAccounts = new HashSet<>();
 
 	@Override
 	public boolean hasFullView() {
@@ -118,11 +124,11 @@ enum BodyColorType {GLOSS, METALLIC, CHROME, CARBON, MATTE, IRIDESCENT, CHAMELEO
 
 @Builder(toBuilder = true)
 record Complectation(
-		int complectation_id,
-		LightProps light_props,
-		AntitheftProps antitheft_props,
-		InteriorProps interior_props,
-		SafetyProps safety_props,
-		MultimediaProps multimedia_props,
-		ExteriorProps exterior_props
+		int complectationId,
+		LightProps lightProps,
+		AntitheftProps antitheftProps,
+		InteriorProps interiorProps,
+		SafetyProps safetyProps,
+		MultimediaProps multimediaProps,
+		ExteriorProps exteriorProps
 ) {}

@@ -35,7 +35,7 @@ public class Complectation extends YanesEntity {
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
-	private String full_name;
+	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "generation_id")
@@ -43,27 +43,27 @@ public class Complectation extends YanesEntity {
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private LightProps light_props;
+	private LightProps lightProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private AntitheftProps antitheft_props;
+	private AntitheftProps antitheftProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private InteriorProps interior_props;
+	private InteriorProps interiorProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private SafetyProps safety_props;
+	private SafetyProps safetyProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private MultimediaProps multimedia_props;
+	private MultimediaProps multimediaProps;
 
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
-	private ExteriorProps exterior_props;
+	private ExteriorProps exteriorProps;
 
 	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Report> reports;

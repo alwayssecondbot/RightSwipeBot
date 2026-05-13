@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @EqualsAndHashCode
 @Data
@@ -22,9 +23,11 @@ public class ReportPhoto {
 	@Column(unique = true, nullable = false)
 	private String url;
 
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private boolean is_main;
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isMain;
 
-	@Column(nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-	private byte sort_order;
+	@Column(nullable = false)
+	@ColumnDefault("0")
+	private byte sortOrder;
 }

@@ -28,63 +28,63 @@ public class Engine extends YanesEntity {
 
 	@Size(max = 255, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 255")
 	@Column(nullable = false, unique = true)
-	private String full_name;
+	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "engine_parent_id")
+	@JoinColumn(name = "parent_id")
 	private Engine engine;
 
-	@PositiveOrZero(message = "Field 'engine_capacity' must be positive.")
-	@Column(check = @CheckConstraint(name = "positive_engine_capacity", constraint = "engine_capacity > 0"))
-	private short engine_capacity;
+	@PositiveOrZero(message = "Field 'capacity' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_capacity", constraint = "capacity > 0"))
+	private short capacity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private EngineType engine_type;
+	private EngineType type;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private EnginePowerSystem engine_power_systyem;
+	private EnginePowerSystem powerSystem;
 
-	@PositiveOrZero(message = "Field 'engine_power' must be positive.")
-	@Column(check = @CheckConstraint(name = "positive_engine_power", constraint = "engine_power > 0"))
-	private short engine_power;
+	@PositiveOrZero(message = "Field 'power' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_power", constraint = "power > 0"))
+	private short power;
 
-	@PositiveOrZero(message = "Field 'engine_torque' must be positive.")
-	@Column(check = @CheckConstraint(name = "positive_engine_torque", constraint = "engine_torque > 0"))
-	private short engine_torque;
+	@PositiveOrZero(message = "Field 'torque' must be positive.")
+	@Column(check = @CheckConstraint(name = "positive_torque", constraint = "torque > 0"))
+	private short torque;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private CylindersPosition cylinders_position;
+	private CylindersPosition cylindersPosition;
 
 	@PositiveOrZero(message = "Field 'cylinders_quantity' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_cylinders_quantity", constraint = "cylinders_quantity > 0"))
-	private byte cylinders_quantity;
+	private byte cylindersQuantity;
 
 	@PositiveOrZero(message = "Field 'valves_per_cylinder' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_valves_per_cylinder", constraint = "valves_per_cylinder > 0"))
-	private byte valves_per_cylinder;
+	private byte valvesPerCylinder;
 
 	@PositiveOrZero(message = "Field 'cylinders_diameter' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_cylinders_diameter", constraint = "cylinders_diameter > 0"))
-	private short cylinders_diameter;
+	private short cylindersDiameter;
 
 	@PositiveOrZero(message = "Field 'piston_stroke' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_piston_stroke", constraint = "piston_stroke > 0"))
-	private short piston_stroke;
+	private short pistonStroke;
 
 	@PositiveOrZero(message = "Field 'compression_ratio' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_compression_ratio", constraint = "compression_ratio > 0"))
-	private byte compression_ratio;
+	private byte compressionRatio;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
-	private FuelType fuel_type;
+	private FuelType fuelType;
 
 	@PositiveOrZero(message = "Field 'co2_emission' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_co2_emission", constraint = "co2_emission > 0"))
-	private short co2_emission;
+	private short co2Emission;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -101,7 +101,7 @@ public class Engine extends YanesEntity {
 
 	@Override
 	public boolean hasFullView() {
-		return false;
+		return true;
 	}
 
 	@Override

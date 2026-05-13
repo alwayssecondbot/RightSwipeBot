@@ -16,6 +16,17 @@ services:
     volumes:
       - postgres_v:/var/lib/postgresql
 
+  Ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama
+    hostname: ollama
+    ports:
+      - 11434:11434
+    restart: unless-stopped
+    networks:
+      - default
+
+
 #  Broker:
 #    image: rabbitmq:latest
 #    container_name: rabbitmq

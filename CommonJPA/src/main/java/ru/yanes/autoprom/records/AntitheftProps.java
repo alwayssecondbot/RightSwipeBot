@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder(toBuilder = true)
 public record AntitheftProps(
-		boolean central_lock,
+		boolean centralLock,
 		boolean immobilizer,
-		boolean intrusion_sensor
+		boolean intrusionSensor
 ) {}

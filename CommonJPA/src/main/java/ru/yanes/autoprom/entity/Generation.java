@@ -36,7 +36,7 @@ public class Generation extends YanesEntity {
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
-	private String full_name;
+	private String fullName;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "model_id")
@@ -44,35 +44,35 @@ public class Generation extends YanesEntity {
 
 	@Enumerated
 	@Column(nullable = false, length = 25)
-	private CarClass car_class;
+	private CarClass carClass;
 
 	@PositiveOrZero(message = "Field 'year_start' must be more than 1900.")
 	@Column(check = @CheckConstraint(name = "positive_year_start", constraint = "year_start >= 1900 "))
-	private short year_start;
+	private short yearStart;
 
 	@PositiveOrZero(message = "Field 'year_stop' must be less than now.")
 	@Column(check = @CheckConstraint(name = "positive_year_stop", constraint = "year_stop <= EXTRACT(YEAR FROM NOW())"))
-	private short year_stop;
+	private short yearStop;
 
 	@PositiveOrZero(message = "Field 'produced_auto' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto >= 0"))
-	private int produced_auto;
+	private int producedAuto;
 
 	@PositiveOrZero(message = "Field 'sold_auto' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto >= 0"))
-	private int sold_auto;
+	private int soldAuto;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
-	private String description_n_history;
+	private String descriptionHistory;
 
 	@PositiveOrZero(message = "Field 'price_max' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price_max", constraint = "price_max >= 0"))
-	private int price_max;
+	private int priceMax;
 
 	@PositiveOrZero(message = "Field 'price_min' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price_min", constraint = "price_min >= 0"))
-	private int price_min;
+	private int priceMin;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Complectation> complectations;
@@ -94,14 +94,14 @@ public class Generation extends YanesEntity {
 			joinColumns = @JoinColumn(name = "generation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
-	private Set<Account> liked_accounts = new HashSet<>();
+	private Set<Account> likedAccounts = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "favourite_generations",
 			joinColumns = @JoinColumn(name = "generation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
-	private Set<Account> favourite_accounts = new HashSet<>();
+	private Set<Account> favouriteAccounts = new HashSet<>();
 
 
 

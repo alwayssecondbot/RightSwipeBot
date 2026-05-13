@@ -4,13 +4,13 @@ import lombok.Builder;
 
 @Builder(toBuilder = true)
 public record LightProps(
-		boolean light_auto_correction,
-		boolean rain_sensor,
-		boolean light_sensor,
-		boolean daytime_light,
-		boolean light_washers,
-		boolean fog_lights,
-		boolean light_turning_correction,
-		boolean light_adaptation_system ,
-		boolean high_light_control_system
+		boolean lightAutoCorrection,
+		boolean rainSensor,
+		boolean lightSensor,
+		boolean daytimeLight,
+		boolean lightWashers,
+		boolean fogLights,
+		boolean lightTurningCorrection,
+		boolean lightAdaptationSystem ,
+		boolean highLightControlSystem
 ){}
