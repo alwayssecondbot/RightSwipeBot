@@ -20,6 +20,7 @@ Date|Type|Difficulty|Priority|Task
 02.05.2026|COMPLETE|0|999|"Mark as ""transactional"" every find method in service for entities with LAZY fetch"
 07.05.2026|COMPLETE|1|999|Create tables with multiple photos for each entity
 12.05.2026|COMPLETE|1|999|create services and DAOs for all photos
-13.05.2026|TODO|1|1|Create short view projection for each entity
+13.05.2026|COMPLETE|1|999|Create short view projection for each entity
 13.05.2026|COMPLETE|1|999|Set default value separated from columnDefinition field
 13.05.2026|COMPLETE|0|999|Change snake-type names on camel-type names
+14.05.2026|TODO|1|2|Change records to store only id not whole entity

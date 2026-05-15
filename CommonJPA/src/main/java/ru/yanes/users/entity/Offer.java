@@ -72,7 +72,7 @@ public class Offer extends YanesEntity{
 
 	@PositiveOrZero(message = "Field 'mileage' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
-	private short mileage;
+	private int mileage;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
 	@JoinColumn(name = "vrc_id", updatable = false, check = @CheckConstraint(name = "may_empty_vrc", constraint = "offer_type = 'IMPORT'"))

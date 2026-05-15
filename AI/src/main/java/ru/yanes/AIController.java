@@ -9,15 +9,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class AIController {
 	private final ChatClient chatClient;
 
+	// The ChatClient.Builder is automatically configured by the starter
 	public AIController(ChatClient.Builder builder) {
 		this.chatClient = builder.build();
 	}
 
-	@GetMapping
-	public String generate(@RequestParam(value = "message", defaultValue = "Tell me a joke about java") String message) {
+	@GetMapping("/ai/joke")
+	public AIJoke generateJoke(@RequestParam String topic) {
 		return chatClient.prompt()
-				.user(message)
+				.user("Tell me a funny joke about " + topic)
+				.system("You are a senior Java architect")
 				.call()
-				.content();
+				.entity(AIJoke.class);
+	}
+
+	@GetMapping("/ai/answer")
+	public AIAnswer generateAnswer(@RequestParam String topic) {
+		return chatClient.prompt()
+				.user("Tell me something about" + topic)
+				.call()
+				.entity(AIAnswer.class);
+	}
+
+	@GetMapping("/error")
+	public String error() {
+		return "error";
 	}
 }

@@ -26,6 +26,12 @@ public class Article extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(nullable = false)
+	String title;
+
+	@Column(unique = true)
+	String mainPhotoUrl;
+
 	@Lob
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
@@ -37,10 +43,6 @@ public class Article extends YanesEntity {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(columnDefinition = "JSONB")
 	private Rating rating;
-
-	@JdbcTypeCode(SqlTypes.JSON)
-	@Column(columnDefinition = "JSONB")
-	private JsonNode entityList;
 
 	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ArticlePhoto> photos;
