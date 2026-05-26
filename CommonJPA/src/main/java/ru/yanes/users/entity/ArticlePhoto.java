@@ -17,7 +17,7 @@ public class ArticlePhoto {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="article_id")
+	@JoinColumn(name="article_id", foreignKey = @ForeignKey(name = "fk_article", foreignKeyDefinition = "FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	Article article;
 
 	@Column(unique = true, nullable = false)

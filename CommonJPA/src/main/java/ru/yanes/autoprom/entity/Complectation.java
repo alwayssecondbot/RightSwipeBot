@@ -31,14 +31,14 @@ public class Complectation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "generation_id")
+	@JoinColumn(name = "generation_id", foreignKey = @ForeignKey(name = "fk_generations", foreignKeyDefinition = "FOREIGN KEY (generation_id) REFERENCES generations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Generation generation;
 
 	@JdbcTypeCode(SqlTypes.JSON)

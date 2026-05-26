@@ -17,7 +17,7 @@ public class GearboxPhoto {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="gearbox_id")
+	@JoinColumn(name="gearbox_id", foreignKey = @ForeignKey(name = "fk_gearboxes", foreignKeyDefinition = "FOREIGN KEY (gearbox_id) REFERENCES gearboxes(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	Gearbox gearbox;
 
 	@Column(unique = true, nullable = false)

@@ -31,7 +31,7 @@ public class Engine extends YanesEntity {
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "parent_id")
+	@JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "fk_engines", foreignKeyDefinition = "FOREIGN KEY (parent_id) REFERENCES engines(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Engine engine;
 
 	@PositiveOrZero(message = "Field 'capacity' must be positive.")

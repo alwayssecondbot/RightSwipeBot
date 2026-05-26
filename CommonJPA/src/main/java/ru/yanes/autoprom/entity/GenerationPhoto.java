@@ -17,7 +17,7 @@ public class GenerationPhoto{
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="generation_id")
+	@JoinColumn(name="generation_id", foreignKey = @ForeignKey(name = "fk_generations", foreignKeyDefinition = "FOREIGN KEY (generation_id) REFERENCES generations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	Generation generation;
 
 	@Column(unique = true, nullable = false)

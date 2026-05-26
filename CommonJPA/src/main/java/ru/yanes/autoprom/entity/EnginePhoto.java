@@ -17,7 +17,7 @@ public class EnginePhoto {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="engine_id")
+	@JoinColumn(name="engine_id", foreignKey = @ForeignKey(name = "fk_engines", foreignKeyDefinition = "FOREIGN KEY (engine_id) REFERENCES engines(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	Engine engine;
 
 	@Column(unique = true, nullable = false)

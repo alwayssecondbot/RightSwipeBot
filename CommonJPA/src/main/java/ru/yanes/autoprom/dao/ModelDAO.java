@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ModelDAO extends JpaRepository<Model, Integer> {
-	@EntityGraph(attributePaths = {"brand", "photos"})
+	@EntityGraph(attributePaths = {"brand", "generations.photos"})
 	List<ModelShortView> findShortViewsBy();
 }

@@ -10,6 +10,6 @@ public interface ArticleShortView {
 	String getTitle();
 	@Value("#{target.creationDate}")
 	Date getCreationDate();
-	@Value("#{target.mainPhotoUrl}")
+	@Value("#{target.photos.?[isMain == true]}")
 	String getMainPhotoUrl();
 }

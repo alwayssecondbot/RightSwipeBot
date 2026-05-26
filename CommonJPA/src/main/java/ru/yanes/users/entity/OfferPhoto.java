@@ -17,7 +17,7 @@ public class OfferPhoto {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="offer_id")
+	@JoinColumn(name="offer_id", foreignKey = @ForeignKey(name = "fk_offers", foreignKeyDefinition = "FOREIGN KEY (offer_id) REFERENCES offers(id) ON UPDATE CASCADE ON DELETE RESTRICT"))
 	Offer offer;
 
 	@Column(unique = true, nullable = false)

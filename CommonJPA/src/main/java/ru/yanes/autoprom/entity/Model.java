@@ -10,6 +10,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.yanes.YanesEntity;
 import ru.yanes.users.entity.Account;
 
@@ -22,6 +25,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE models SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "models")
 public class Model extends YanesEntity {
 
@@ -29,20 +34,20 @@ public class Model extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
-	@Column(unique = true)
-	private String photos;
-
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "brand_id", nullable = false)
+	@JoinColumn(name = "brand_id", nullable = false, foreignKey = @ForeignKey(name = "fk_brands", foreignKeyDefinition = "FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Brand brand;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String descriptionHistory;
+
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Generation> generations;

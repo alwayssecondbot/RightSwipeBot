@@ -11,6 +11,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.yanes.YanesEntity;
 import ru.yanes.global.entity.Country;
 
@@ -22,6 +25,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE brands SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "brands")
 public class Brand extends YanesEntity {
 
@@ -29,20 +34,18 @@ public class Brand extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private short id;
 
-	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
 	private String shortName;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "country_code")
+	@JoinColumn(name = "country_code", foreignKey = @ForeignKey(name = "fk_countries", foreignKeyDefinition = "FOREIGN KEY (country_code) REFERENCES countries(code) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Country country;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "concern_id")
+	@JoinColumn(name = "concern_id", foreignKey = @ForeignKey(name = "fk_concerns", foreignKeyDefinition = "FOREIGN KEY (concern_id) REFERENCES concerns(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Concern concern;
 
 	@Column(unique = true)
@@ -66,6 +69,10 @@ public class Brand extends YanesEntity {
 	@PositiveOrZero(message = "Field 'sold_auto' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto > 0"))
 	private int soldAuto;
+
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Model> models;

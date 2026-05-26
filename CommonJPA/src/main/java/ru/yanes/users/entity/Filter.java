@@ -24,7 +24,7 @@ public class Filter extends YanesEntity {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "account_id", updatable = false)
+	@JoinColumn(name = "account_id", updatable = false, foreignKey = @ForeignKey(name = "fk_accounts", foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES accounts ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Account account;
 
 	@Size(max = 50, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.yanes.autoprom.entity.Complectation;
 
 @Repository
-public interface ComplectationDAO extends JpaRepository<Complectation, Integer> {
+public interface ComplectationDAO extends JpaRepository<Complectation, Long> {
 }

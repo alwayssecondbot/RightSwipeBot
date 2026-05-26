@@ -28,7 +28,7 @@ public class City extends YanesEntity {
 	private int id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "country_code")
+	@JoinColumn(name = "country_code", foreignKey =@ForeignKey(name = "fk_countries", foreignKeyDefinition = "FOREIGN KEY (country_code) REFERENCES countries(code) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Country country;
 
 	@Size(max = 200, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 200")

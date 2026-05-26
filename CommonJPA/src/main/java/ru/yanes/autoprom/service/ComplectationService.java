@@ -5,10 +5,10 @@ import ru.yanes.autoprom.entity.Complectation;
 
 import java.util.List;
 
-public interface ComplectationService extends YanesService<Complectation,Integer> {
+public interface ComplectationService extends YanesService<Complectation,Long> {
 
 	@Override
-	Complectation findById(Integer id);
+	Complectation findById(Long id);
 
 	@Override
 	Complectation save(Complectation object);
@@ -17,5 +17,5 @@ public interface ComplectationService extends YanesService<Complectation,Integer
 	List<Complectation> findAll();
 
 	@Override
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

@@ -11,6 +11,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.yanes.YanesEntity;
 import ru.yanes.global.entity.Country;
 
@@ -22,6 +25,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE concerns SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "concerns")
 public class Concern extends YanesEntity {
 
@@ -29,11 +34,9 @@ public class Concern extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private short id;
 
-	@Size(max = 50, min = 3, message = "Length of attribute 'short_name' must be more than 3 and less than 50")
 	@Column(nullable = false, length = 50)
 	private String shortName;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
@@ -41,11 +44,11 @@ public class Concern extends YanesEntity {
 	private String logoUrl;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "country_code", nullable = false)
+	@JoinColumn(name = "country_code", nullable = false, foreignKey = @ForeignKey(name = "fk_countries", foreignKeyDefinition = "FOREIGN KEY (country_code) REFERENCES countries(code) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Country country;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false)
-	@JoinColumn(name = "main_brand_id")
+	@JoinColumn(name = "main_brand_id", foreignKey = @ForeignKey(name = "fk_brands", foreignKeyDefinition = "FOREIGN KEY (main_brand_id) REFERENCES brands(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Brand mainBrand;
 
 	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
@@ -58,6 +61,10 @@ public class Concern extends YanesEntity {
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String descriptionHistory;
+
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@OneToMany(mappedBy = "concern", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Brand> brands;

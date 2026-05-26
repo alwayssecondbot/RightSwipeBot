@@ -26,18 +26,18 @@ import java.util.Set;
 public class Country extends YanesEntity {
 	@Id
 	@Pattern(regexp ="[0-9]{3}", message = "There must be only 3 digits in attribute 'code'.")
-	@Column(nullable = false, unique = true, length = 3)
+	@Column(nullable = false, unique = true, length = 3, check = @CheckConstraint(name = "valid_code", constraint = "LENGTH(code) = 3 AND code ~* '^[0-9]{3}'"))
 	private String code;
 
 	@Column(nullable = false, length = 200)
 	private String fullName;
 
 	@Pattern(regexp = "[a-zA-Z]{2}", message = "There must be only 2 symbols in attribute 'alpha2'.")
-	@Column(nullable = false, unique = true, length = 2)
+	@Column(nullable = false, unique = true, length = 2, check = @CheckConstraint(name = "valid_alpha2", constraint = "LENGTH(alpha2) = 2"))
 	private String alpha2;
 
 	@Pattern(regexp = "[a-zA-Z]{3}", message = "There must be only 3 symbols in attribute 'alpha3'.")
-	@Column(nullable = false, unique = true, length = 3)
+	@Column(nullable = false, unique = true, length = 3, check = @CheckConstraint(name = "valid_alpha3", constraint = "LENGTH(alpha3) = 3"))
 	private String alpha3;
 
 	@Column(unique = true)

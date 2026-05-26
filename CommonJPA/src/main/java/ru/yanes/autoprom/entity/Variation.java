@@ -29,14 +29,13 @@ public class Variation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "generation_id")
+	@JoinColumn(name = "generation_id", foreignKey = @ForeignKey(name = "fk_generations", foreignKeyDefinition = "FOREIGN KEY (generation_id) REFERENCES generations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Generation generation;
 
 	@Enumerated(EnumType.STRING)
@@ -48,7 +47,7 @@ public class Variation extends YanesEntity {
 	private DriveType driveType;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = true)
-	@JoinColumn(name = "engine_id")
+	@JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "fk_engines", foreignKeyDefinition = "FOREIGN KEY (engine_id) REFERENCES engines(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Engine engine;
 
 	@Enumerated(EnumType.STRING)
@@ -60,7 +59,7 @@ public class Variation extends YanesEntity {
 	private BoostType boostType;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = true)
-	@JoinColumn(name = "gearbox_id")
+	@JoinColumn(name = "gearbox_id", foreignKey = @ForeignKey(name = "fk_gearboxes", foreignKeyDefinition = "FOREIGN KEY (gearbox_id) REFERENCES gearboxes(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Gearbox gearbox;
 
 	@JdbcTypeCode(SqlTypes.JSON)
@@ -124,6 +123,7 @@ public class Variation extends YanesEntity {
 		return false;
 	}
 }
+
 @Builder(toBuilder = true)
 record BodyProps (
 		short bodyLength,

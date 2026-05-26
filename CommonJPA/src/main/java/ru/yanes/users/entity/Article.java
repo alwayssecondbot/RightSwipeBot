@@ -29,9 +29,6 @@ public class Article extends YanesEntity {
 	@Column(nullable = false)
 	String title;
 
-	@Column(unique = true)
-	String mainPhotoUrl;
-
 	@Lob
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;

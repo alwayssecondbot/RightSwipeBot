@@ -5,9 +5,9 @@ import ru.yanes.autoprom.entity.Variation;
 
 import java.util.List;
 
-public interface VariationService extends YanesService<Variation,Integer> {
+public interface VariationService extends YanesService<Variation,Long> {
 	@Override
-	Variation findById(Integer id);
+	Variation findById(Long id);
 
 	@Override
 	Variation save(Variation object);
@@ -16,5 +16,5 @@ public interface VariationService extends YanesService<Variation,Integer> {
 	List<Variation> findAll();
 
 	@Override
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

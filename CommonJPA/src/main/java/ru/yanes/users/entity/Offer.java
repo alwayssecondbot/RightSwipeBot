@@ -5,6 +5,8 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.entity.Variation;
@@ -21,6 +23,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE offers SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "offers")
 public class Offer extends YanesEntity{
 	@Id
@@ -28,7 +32,7 @@ public class Offer extends YanesEntity{
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "seller_account_id", updatable = false)
+	@JoinColumn(name = "seller_account_id", updatable = false, foreignKey = @ForeignKey(name = "fk_accounts", foreignKeyDefinition = "FOREIGN KEY (seller_account_id) REFERENCES accounts(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Account account;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
@@ -36,7 +40,7 @@ public class Offer extends YanesEntity{
 	private City city;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "variation_id")
+	@JoinColumn(name = "variation_id", foreignKey = @ForeignKey(name = "fk_variations", foreignKeyDefinition = "FOREIGN KEY (variation_id) REFERENCES variations ON UPDATE CASCADE ON DELETE RESTRICT"))
 	private Variation variation;
 
 	@JdbcTypeCode(SqlTypes.JSON)
@@ -59,12 +63,12 @@ public class Offer extends YanesEntity{
 	@ColumnDefault("NOW()")
 	private Date creationDate;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "DATE")
 	private Date lastUpdate;
 
 	@Column(nullable = false)
-	@ColumnDefault("TRUE")
-	private boolean isActual;
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
@@ -74,12 +78,13 @@ public class Offer extends YanesEntity{
 	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
 	private int mileage;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-	@JoinColumn(name = "vrc_id", updatable = false, check = @CheckConstraint(name = "may_empty_vrc", constraint = "offer_type = 'IMPORT'"))
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "vrc_id", updatable = false, check = @CheckConstraint(name = "may_empty_vrc", constraint = "offer_type = 'IN_STOCK' and vrc_id IS NOT NULL"),
+	foreignKey = @ForeignKey(name = "fk_vrces", foreignKeyDefinition = "FOREIGN KEY (vrc_id) REFERENCES vrces(id) ON UPDATE CASCADE ON DELETE RESTRICT"))
 	private Vrc vrc;
 
 	@PositiveOrZero(message = "Field 'body_color' must be positive or zero.")
-	@Column(check = @CheckConstraint(name = "positive_body_color", constraint = "body_color >= 0"), nullable = false)
+	@Column(check = @CheckConstraint(name = "range_body_color", constraint = "body_color >= 0 and body_color <= 128"), nullable = false)
 	private byte bodyColor;
 
 	@Enumerated(EnumType.STRING)
@@ -87,7 +92,7 @@ public class Offer extends YanesEntity{
 	private BodyColorType bodyColorType;
 
 	@PositiveOrZero(message = "Field 'interior_color' must be positive or zero.")
-	@Column(check = @CheckConstraint(name = "positive_interior_color", constraint = "interior_color >= 0"), nullable = false)
+	@Column(check = @CheckConstraint(name = "range_interior_color", constraint = "interior_color >= 0 and interior_color <= 128"), nullable = false)
 	private byte interiorColor;
 
 	@Column(nullable = false)

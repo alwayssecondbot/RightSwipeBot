@@ -17,7 +17,7 @@ public class ReviewPhoto {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name="review_id")
+	@JoinColumn(name="review_id", foreignKey = @ForeignKey(name = "fk_reviews", foreignKeyDefinition = "FOREIGN KEY (review_id) REFERENCES reviews ON DELETE RESTRICT ON UPDATE CASCADE"))
 	Review review;
 
 	@Column(unique = true, nullable = false)

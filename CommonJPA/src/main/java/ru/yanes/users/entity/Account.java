@@ -3,6 +3,8 @@ package ru.yanes.users.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.yanes.YanesEntity;
 import ru.yanes.global.entity.Country;
 
@@ -16,6 +18,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE accounts SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "accounts")
 public class Account extends YanesEntity {
 
@@ -36,7 +40,7 @@ public class Account extends YanesEntity {
 	@Column
 	private String fullName;
 
-	@Column
+	@Column(columnDefinition = "DATE")
 	private Date birthday;
 
 	@Column(unique = true)
@@ -54,15 +58,19 @@ public class Account extends YanesEntity {
 	private LocalDateTime lastOnline;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "country_code")
+	@JoinColumn(name = "country_code", foreignKey = @ForeignKey(name = "fk_country", foreignKeyDefinition = "FOREIGN KEY (country_code) REFERENCES countries(code) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Country country;
 
-	@Column
+	@Column(columnDefinition = "DATE")
 	private Date driveSince;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
 	private boolean isVerified;
+
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@Embedded
 	private Liked liked;

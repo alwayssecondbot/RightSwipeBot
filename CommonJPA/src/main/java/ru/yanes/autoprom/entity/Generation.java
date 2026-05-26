@@ -11,6 +11,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.enums.CarClass;
 import ru.yanes.users.entity.Account;
@@ -21,12 +25,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+@BatchSize(size=30)
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE generations SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "generations")
 public class Generation extends YanesEntity {
 
@@ -34,15 +41,14 @@ public class Generation extends YanesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Size(max = 100, min = 3, message = "Length of attribute 'name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "model_id")
+	@JoinColumn(name = "model_id", foreignKey = @ForeignKey(name = "fk_models", foreignKeyDefinition = "FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Model model;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
 	private CarClass carClass;
 
@@ -73,6 +79,10 @@ public class Generation extends YanesEntity {
 	@PositiveOrZero(message = "Field 'price_min' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price_min", constraint = "price_min >= 0"))
 	private int priceMin;
+
+	@Column(nullable = false)
+	@ColumnDefault("FALSE")
+	private boolean isDeleted;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Complectation> complectations;

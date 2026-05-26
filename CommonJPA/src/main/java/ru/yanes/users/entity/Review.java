@@ -28,19 +28,19 @@ public class Review extends YanesEntity {
 	private long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "account_id", updatable = false)
+	@JoinColumn(name = "account_id", updatable = false, foreignKey = @ForeignKey(name = "fk_accounts", foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES accounts ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Account account;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
-	@JoinColumn(name = "generation_id")
+	@JoinColumn(name = "generation_id",  foreignKey = @ForeignKey(name = "fk_generations", foreignKeyDefinition = "FOREIGN KEY (generation_id) REFERENCES generations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Generation generation;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = true)
-	@JoinColumn(name = "variation_id")
+	@JoinColumn(name = "variation_id", foreignKey = @ForeignKey(name = "fk_variations", foreignKeyDefinition = "FOREIGN KEY (variation_id) REFERENCES variations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Variation variation;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = true)
-	@JoinColumn(name = "complectationr_id")
+	@JoinColumn(name = "complectation_id", foreignKey = @ForeignKey(name = "fk_complectations", foreignKeyDefinition = "FOREIGN KEY (complectation_id) REFERENCES complectations(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Complectation complectation;
 
 	@Lob

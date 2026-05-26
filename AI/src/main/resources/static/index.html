@@ -1,0 +1,7 @@
+<div id="output"></div>
+<script>
+    const eventSource = new EventSource('/ai/answer-stream?topic=Java');
+    eventSource.onmessage = (event) => {
+        document.getElementById('output').innerText += event.data;
+    };
+</script>

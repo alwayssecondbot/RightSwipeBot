@@ -18,7 +18,7 @@ public class ComplectationServiceImpl implements ComplectationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Complectation findById(Integer id) {
+	public Complectation findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}
 
@@ -36,7 +36,7 @@ public class ComplectationServiceImpl implements ComplectationService {
 
 	@Override
 	@Transactional
-	public void deleteById(Integer id) {
+	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
 

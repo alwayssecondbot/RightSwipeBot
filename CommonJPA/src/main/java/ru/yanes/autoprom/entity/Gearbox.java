@@ -29,7 +29,7 @@ public class Gearbox extends YanesEntity {
 	private String fullName;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "parent_id")
+	@JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "fk_gearboxes", foreignKeyDefinition = "FOREIGN KEY (parent_id) REFERENCES gearboxes(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Gearbox gearbox;
 
 	@Enumerated(EnumType.STRING)

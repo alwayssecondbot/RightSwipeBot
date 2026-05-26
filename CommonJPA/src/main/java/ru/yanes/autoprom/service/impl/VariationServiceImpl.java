@@ -18,7 +18,7 @@ public class VariationServiceImpl implements VariationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Variation findById(Integer id) {
+	public Variation findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 	}
 
@@ -36,7 +36,7 @@ public class VariationServiceImpl implements VariationService {
 
 	@Override
 	@Transactional
-	public void deleteById(Integer id) {
+	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
 }

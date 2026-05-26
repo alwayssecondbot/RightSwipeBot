@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.yanes.autoprom.entity.Variation;
 
 @Repository
-public interface VaritationDAO extends JpaRepository<Variation, Integer> {
+public interface VaritationDAO extends JpaRepository<Variation, Long> {
 }
