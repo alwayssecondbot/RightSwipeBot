@@ -17,7 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "gearboxes")
+@Table(name = "gearboxes", indexes = {
+		@Index(name = "idx_gearboxes_type", columnList = "type"),
+		@Index(name = "idx_gearboxes_parent_id", columnList = "parent_id")
+})
 public class Gearbox extends YanesEntity {
 
 	@Id

@@ -25,7 +25,14 @@ import java.util.Set;
 @Entity
 @SQLDelete(sql = "UPDATE offers SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
-@Table(name = "offers")
+@Table(name = "offers", indexes = {
+		@Index(name = "idx_offers_city_id", columnList = "city_id"),
+		@Index(name = "idx_offers_variation_id", columnList = "variation_id"),
+		@Index(name = "idx_offers_seller_account_id", columnList = "seller_account_id"),
+		@Index(name = "idx_offers_creation_date", columnList = "creation_date"),
+		@Index(name = "idx_offers_mileage", columnList = "mileage"),
+		@Index(name = "idx_offers_price", columnList = "price")
+})
 public class Offer extends YanesEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,7 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cities")
+@Table(name = "cities", indexes = @Index(name = "idx_cities_country_code", columnList = "country_code"))
 public class City extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,7 +27,7 @@ import java.util.Set;
 @Entity
 @SQLDelete(sql = "UPDATE concerns SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
-@Table(name = "concerns")
+@Table(name = "concerns", indexes = @Index(name = "idx_concerns_country_code", columnList = "country_code"))
 public class Concern extends YanesEntity {
 
 	@Id

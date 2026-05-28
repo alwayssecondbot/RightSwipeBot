@@ -24,7 +24,14 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "variations")
+@Table(name = "variations", indexes = {
+		@Index(name = "idx_variations_generation_id", columnList = "generation_id"),
+		@Index(name = "idx_variations_gearbox_id", columnList = "gearbox_id"),
+		@Index(name = "idx_variations_engine_id", columnList = "engine_id"),
+		@Index(name = "idx_variations_body_type", columnList = "body_type"),
+		@Index(name = "idx_variations_acl_to_100", columnList = "acl_to_100"),
+		@Index(name = "idx_variations_fuel_per_100", columnList = "fuel_per_100")
+})
 public class Variation extends YanesEntity {
 
 	@Id

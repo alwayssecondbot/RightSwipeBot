@@ -20,7 +20,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "reviews")
+@Table(name = "reviews",  indexes = {
+		@Index(name = "idx_reviews_creation_date", columnList = "creation_date"),
+		@Index(name = "idx_reviews_account_id", columnList = "account_id"),
+		@Index(name = "idx_reviews_complectation_id", columnList = "complectation_id"),
+		@Index(name = "idx_reviews_generation_id", columnList = "generation_id"),
+		@Index(name = "idx_reviews_variation_id", columnList = "variation_id")
+})
 public class Review extends YanesEntity {
 
 	@Id

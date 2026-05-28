@@ -26,7 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "complectations")
+@Table(name = "complectations", indexes = @Index(name = "idx_complectations_generation_id", columnList = "generation_id"))
 public class Complectation extends YanesEntity {
 
 	@Id

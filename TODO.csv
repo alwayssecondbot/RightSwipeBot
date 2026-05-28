@@ -29,5 +29,5 @@ Date|Type|Difficulty|Priority|Task
 20.05.2026|TODO|3|1|Seed DB
 21.05.2026|TODO|0|2|Set BatchSize for each entity
 25.05.2026|COMPLETE|0|999|Edit article shortview for main photo
-26.05.2026|TODO|2|0|Add indexes
-26.05.2026|TODO|1|0|Add indexes into classes
+26.05.2026|COMPLETE|2|999|Add indexes
+26.05.2026|COMPLETE|1|999|Add indexes into classes

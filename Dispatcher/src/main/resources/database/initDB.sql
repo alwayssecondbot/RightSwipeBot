@@ -74,7 +74,8 @@ CREATE TABLE IF NOT EXISTS article_photos
             ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_article_photos_article_id ON article_photos(article_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_article_photos_article_id_is_main ON article_photos(article_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_article_photos_article_id_sort_order ON article_photos(article_id,sort_order);
 
 CREATE TABLE IF NOT EXISTS articles
 (
@@ -188,7 +189,8 @@ CREATE TABLE IF NOT EXISTS offer_photos
         ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_offer_photos_offer_id ON offer_photos(offer_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_offer_photos_offer_id_is_main ON offer_photos(offer_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_offer_photos_offer_id_sort_order ON offer_photos(offer_id, sort_order);
 
 
 CREATE TABLE IF NOT EXISTS reports
@@ -250,8 +252,8 @@ CREATE TABLE IF NOT EXISTS report_photos
         ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_report_photos_offer_id ON report_photos(report_id) WHERE is_main = TRUE;
-
+CREATE INDEX IF NOT EXISTS idx_report_photos_report_id_is_main ON report_photos(report_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_report_photos_report_id_sort_order ON report_photos(report_id,sort_order);
 
 CREATE TABLE IF NOT EXISTS reviews
 (
@@ -310,7 +312,8 @@ CREATE TABLE IF NOT EXISTS review_photos
         ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_review_photos_offer_id ON review_photos(review_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_review_photos_review_id_is_main ON review_photos(review_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_review_photos_review_id_sort_order ON review_photos(review_id, sort_order);
 
 CREATE TABLE IF NOT EXISTS vrces
 (
@@ -374,7 +377,7 @@ CREATE TABLE IF NOT EXISTS liked_variations
 );
 
 CREATE INDEX IF NOT EXISTS idx_liked_variations_account_id ON liked_variations(account_id);
-CREATE INDEX IF NOT EXISTS idx_liked_variations_offer_id ON liked_variations(variation_id);
+CREATE INDEX IF NOT EXISTS idx_liked_variations_variation_id ON liked_variations(variation_id);
 
 
 CREATE TABLE IF NOT EXISTS liked_generations
@@ -392,8 +395,8 @@ CREATE TABLE IF NOT EXISTS liked_generations
     primary key (account_id, generation_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_liked_variations_account_id ON liked_variations(account_id);
-CREATE INDEX IF NOT EXISTS idx_liked_variations_offer_id ON liked_variations(variation_id);
+CREATE INDEX IF NOT EXISTS idx_liked_generations_account_id ON liked_generations(account_id);
+CREATE INDEX IF NOT EXISTS idx_liked_generations_generation_id ON liked_generations(generation_id);
 
 CREATE TABLE IF NOT EXISTS favourite_generations
 (
@@ -411,7 +414,7 @@ CREATE TABLE IF NOT EXISTS favourite_generations
 );
 
 CREATE INDEX IF NOT EXISTS idx_favourite_generations_account_id ON favourite_generations(account_id);
-CREATE INDEX IF NOT EXISTS idx_favourite_generations_offer_id ON favourite_generations(generation_id);
+CREATE INDEX IF NOT EXISTS idx_favourite_generations_generation_id ON favourite_generations(generation_id);
 
 
 CREATE TABLE IF NOT EXISTS favourite_variations
@@ -430,7 +433,7 @@ CREATE TABLE IF NOT EXISTS favourite_variations
 );
 
 CREATE INDEX IF NOT EXISTS idx_favourite_variations_account_id ON favourite_variations(account_id);
-CREATE INDEX IF NOT EXISTS idx_favourite_variations_offer_id ON favourite_variations(variation_id);
+CREATE INDEX IF NOT EXISTS idx_favourite_variations_variation_id ON favourite_variations(variation_id);
 
 
 --AUTOPROM ENTITIES
@@ -567,7 +570,8 @@ CREATE TABLE IF NOT EXISTS generation_photos
         ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_generation_photos_generation_id ON generation_photos(generation_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_generation_photos_generation_id_is_main ON generation_photos(generation_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_generation_photos_generation_id_sort_order ON generation_photos(generation_id, sort_order);
 
 CREATE TABLE IF NOT EXISTS variations
 (
@@ -682,7 +686,8 @@ CREATE TABLE IF NOT EXISTS engine_photos
         ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_engine_photos_engine_id ON engine_photos(engine_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_engine_photos_engine_id_is_main ON engine_photos(engine_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_engine_photos_engine_id_sort_order ON engine_photos(engine_id,sort_order);
 
 CREATE TABLE IF NOT EXISTS gearboxes
 (
@@ -722,7 +727,8 @@ CREATE TABLE IF NOT EXISTS gearbox_photos
         ON UPDATE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_gearbox_photos_gearbox_id ON gearbox_photos(gearbox_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_gearbox_photos_gearbox_id_is_main ON gearbox_photos(gearbox_id) WHERE is_main = TRUE;
+CREATE INDEX IF NOT EXISTS idx_gearbox_photos_gearbox_id_sort_order ON gearbox_photos(gearbox_id,sort_order);
 
 CREATE TABLE IF NOT EXISTS complectations
 (

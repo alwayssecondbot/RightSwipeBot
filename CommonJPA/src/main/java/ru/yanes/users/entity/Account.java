@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @SQLDelete(sql = "UPDATE accounts SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
-@Table(name = "accounts")
+@Table(name = "accounts", indexes = @Index(name = "idx_accounts_country_code", columnList = "country_code"))
 public class Account extends YanesEntity {
 
 	@Id

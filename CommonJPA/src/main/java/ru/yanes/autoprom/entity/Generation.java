@@ -34,7 +34,10 @@ import java.util.Set;
 @Entity
 @SQLDelete(sql = "UPDATE generations SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
-@Table(name = "generations")
+@Table(name = "generations", indexes = {
+		@Index(name = "idx_generations_model_id", columnList = "model_id"),
+		@Index(name = "idx_generations_car_class", columnList = "car_class")
+})
 public class Generation extends YanesEntity {
 
 	@Id

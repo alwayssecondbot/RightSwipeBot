@@ -20,7 +20,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "reports")
+@Table(name = "reports", indexes = {
+		@Index(name = "idx_reports_creation_date", columnList = "creation_date"),
+		@Index(name = "idx_reports_account_id", columnList = "account_id"),
+		@Index(name = "idx_reports_complectation_id", columnList = "complectation_id"),
+		@Index(name = "idx_reports_generation_id", columnList = "generation_id"),
+		@Index(name = "idx_reports_variation_id", columnList = "variation_id")
+})
 public class Report extends YanesEntity {
 
 	@Id

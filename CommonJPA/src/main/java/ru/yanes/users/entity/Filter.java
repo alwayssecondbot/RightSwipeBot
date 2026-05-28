@@ -16,7 +16,7 @@ import ru.yanes.autoprom.records.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "filters")
+@Table(name = "filters", indexes = @Index(name = "idx_filters_account_id", columnList = "account_id"))
 public class Filter extends YanesEntity {
 
 	@Id

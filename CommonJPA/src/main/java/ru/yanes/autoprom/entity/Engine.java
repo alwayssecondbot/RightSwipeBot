@@ -20,7 +20,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "engines")
+@Table(name = "engines", indexes = {
+		@Index(name = "idx_engines_parent_id", columnList = "parent_id"),
+		@Index(name = "idx_engines_capacity", columnList = "capacity"),
+		@Index(name = "idx_engines_power", columnList = "power"),
+		@Index(name = "idx_engines_torque", columnList = "torque")
+})
 public class Engine extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

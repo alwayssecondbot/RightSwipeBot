@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "articles")
+@Table(name = "articles", indexes = @Index(name = "idx_articles_creation_date", columnList = "creation_date"))
 public class Article extends YanesEntity {
 
 	@Id

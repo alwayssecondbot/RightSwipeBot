@@ -10,7 +10,10 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "review_photos")
+@Table(name = "review_photos", indexes = {
+		@Index(name = "idx_review_photos_review_id_is_main", columnList = "review_id", options = "WHERE is_main = TRUE"),
+		@Index(name = "idx_review_photos_review_id_sort_order", columnList = "review_id,sort_order")
+})
 public class ReviewPhoto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
