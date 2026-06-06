@@ -1,7 +1,6 @@
 package ru.yanes.autoprom.service;
 
 import ru.yanes.YanesService;
-import ru.yanes.autoprom.entity.Generation;
 import ru.yanes.autoprom.entity.Model;
 
 import java.util.List;

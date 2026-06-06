@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
-import ru.yanes.autoprom.entity.Brand;
 
 import java.util.Date;
 

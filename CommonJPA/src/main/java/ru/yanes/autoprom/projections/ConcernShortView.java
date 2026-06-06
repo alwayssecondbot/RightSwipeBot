@@ -1,8 +1,6 @@
 package ru.yanes.autoprom.projections;
 
 import org.springframework.beans.factory.annotation.Value;
-import ru.yanes.autoprom.entity.Brand;
-import ru.yanes.global.entity.Country;
 
 public interface ConcernShortView {
 	Short getId();

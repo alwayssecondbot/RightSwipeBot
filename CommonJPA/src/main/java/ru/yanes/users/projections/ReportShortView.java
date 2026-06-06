@@ -1,10 +1,8 @@
 package ru.yanes.users.projections;
 
 import org.springframework.beans.factory.annotation.Value;
-import ru.yanes.users.entity.ReportPhoto;
 
 import java.util.Date;
-import java.util.Set;
 
 public interface ReportShortView {
 	Long getId();
