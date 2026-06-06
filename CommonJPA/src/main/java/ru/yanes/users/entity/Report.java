@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -31,7 +32,7 @@ public class Report extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "account_id", updatable = false, foreignKey = @ForeignKey(name = "fk_accounts", foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES accounts ON DELETE RESTRICT ON UPDATE CASCADE"))
@@ -62,15 +63,16 @@ public class Report extends YanesEntity {
 	private Rating rating;
 
 	@OneToMany(mappedBy = "report", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<ReportPhoto> photos;
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return true;
 	}
 }

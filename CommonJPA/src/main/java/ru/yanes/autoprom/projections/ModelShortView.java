@@ -6,7 +6,7 @@ import ru.yanes.autoprom.entity.GenerationPhoto;
 import java.util.List;
 
 public interface ModelShortView {
-	int getId();
+	Short getId();
 	@Value("#{target.brand.shortName + ' ' + target.fullName}")
 	String getFullName();
 	@Value("#{target.generations.stream().flatMap(g -> g.getPhotos().stream()).filter(p -> p.isMain()).toList()}")

@@ -446,8 +446,7 @@ CREATE TABLE IF NOT EXISTS concerns
     description_history TEXT,
     grows               SMALLINT,
     logo_url            VARCHAR(255) UNIQUE,
-    short_name          VARCHAR(50) NOT NULL,
-    main_brand_id       SMALLINT NOT NULL UNIQUE,
+    main_brand_id       SMALLINT UNIQUE,
     is_deleted          BOOLEAN DEFAULT FALSE NOT NULL,
 
     CONSTRAINT fk_brands

@@ -5,7 +5,7 @@ import ru.yanes.autoprom.entity.Concern;
 import ru.yanes.global.entity.Country;
 
 public interface BrandShortView {
-	short getId();
+	Short getId();
 	@Value("#{target.shortName}")
 	String getShortName();
 	@Value("#{target.concern.shortName}")

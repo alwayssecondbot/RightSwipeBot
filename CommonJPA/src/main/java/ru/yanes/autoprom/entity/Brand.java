@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -25,6 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @SQLDelete(sql = "UPDATE brands SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 @Table(name = "brands", indexes = {
@@ -35,7 +37,7 @@ public class Brand extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private short id;
+	private Short id;
 
 	@Column(nullable = false, length = 50)
 	private String shortName;
@@ -56,10 +58,10 @@ public class Brand extends YanesEntity {
 
 	@PositiveOrZero(message = "Field 'capitalization' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_capitalization", constraint = "capitalization > 0"))
-	private int capitalization;
+	private Integer capitalization;
 
 	@Column
-	private byte grows;
+	private Byte grows;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -67,26 +69,27 @@ public class Brand extends YanesEntity {
 
 	@PositiveOrZero(message = "Field 'produced_auto' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto > 0"))
-	private int producedAuto;
+	private Integer producedAuto;
 
 	@PositiveOrZero(message = "Field 'sold_auto' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto > 0"))
-	private int soldAuto;
+	private Integer soldAuto;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 25)
 	private Set<Model> models;
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return true;
 	}
 }

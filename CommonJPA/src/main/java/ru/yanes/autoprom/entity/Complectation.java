@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
@@ -26,12 +27,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @Table(name = "complectations", indexes = @Index(name = "idx_complectations_generation_id", columnList = "generation_id"))
 public class Complectation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Size(max = 100, min = 3, message = "Length of attribute 'full_name' must be more than 3 and less than 100")
 	@Column(nullable = false, length = 100)
@@ -66,18 +68,20 @@ public class Complectation extends YanesEntity {
 	private ExteriorProps exteriorProps;
 
 	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Report> reports;
 
 	@OneToMany(mappedBy = "complectation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Review> reviews;
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return false;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return false;
 	}
 }

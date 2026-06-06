@@ -2,6 +2,7 @@ package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @SQLDelete(sql = "UPDATE accounts SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 @Table(name = "accounts", indexes = @Index(name = "idx_accounts_country_code", columnList = "country_code"))
@@ -25,7 +27,7 @@ public class Account extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(unique = true, check = @CheckConstraint(name = "valid_mail", constraint = "mail ~* '^[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$'"),
 	length = 100)
@@ -48,7 +50,7 @@ public class Account extends YanesEntity {
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isCorporation;
+	private Boolean isCorporation;
 
 	@Column(nullable = false, columnDefinition = "DATE", insertable = false, updatable = false)
 	@ColumnDefault("NOW()")
@@ -66,11 +68,11 @@ public class Account extends YanesEntity {
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isVerified;
+	private Boolean isVerified;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 
 	@Embedded
 	private Liked liked;
@@ -79,24 +81,28 @@ public class Account extends YanesEntity {
 	private Favourite favourite;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Offer> offers;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Filter> filters;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Report> reports;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Review> reviews;
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return false;
 	}
 }

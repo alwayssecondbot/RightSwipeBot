@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.Date;
 
 public interface ArticleShortView {
-	long getId();
+	Long getId();
 	@Value("#{target.title}")
 	String getTitle();
 	@Value("#{target.creationDate}")

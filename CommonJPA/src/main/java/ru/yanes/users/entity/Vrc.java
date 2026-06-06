@@ -20,10 +20,10 @@ import java.util.Date;
 public class Vrc extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(nullable = false, updatable = false)
-	private boolean isOriginal;
+	private Boolean isOriginal;
 
 	@Column(nullable = false, columnDefinition = "DATE", updatable = false)
 	private Date producedDate;
@@ -37,12 +37,12 @@ public class Vrc extends YanesEntity {
 
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return false;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return false;
 	}
 }

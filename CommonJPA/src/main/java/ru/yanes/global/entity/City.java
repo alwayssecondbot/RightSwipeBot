@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.BatchSize;
 import ru.yanes.YanesEntity;
 import ru.yanes.users.entity.Offer;
 
@@ -21,11 +22,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@BatchSize(size = 50)
 @Table(name = "cities", indexes = @Index(name = "idx_cities_country_code", columnList = "country_code"))
 public class City extends YanesEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "country_code", foreignKey =@ForeignKey(name = "fk_countries", foreignKeyDefinition = "FOREIGN KEY (country_code) REFERENCES countries(code) ON DELETE RESTRICT ON UPDATE CASCADE"))
@@ -36,16 +38,17 @@ public class City extends YanesEntity {
 	private String fullName;
 
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Offer> offers;
 
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return false;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return false;
 	}
 }

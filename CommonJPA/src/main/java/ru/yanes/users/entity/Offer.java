@@ -1,12 +1,10 @@
 package ru.yanes.users.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 import ru.yanes.YanesEntity;
 import ru.yanes.autoprom.entity.Variation;
@@ -36,13 +34,13 @@ import java.util.Set;
 public class Offer extends YanesEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "seller_account_id", updatable = false, foreignKey = @ForeignKey(name = "fk_accounts", foreignKeyDefinition = "FOREIGN KEY (seller_account_id) REFERENCES accounts(id) ON DELETE RESTRICT ON UPDATE CASCADE"))
 	private Account account;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
 	@JoinColumn(name = "city_id")
 	private City city;
 
@@ -60,7 +58,7 @@ public class Offer extends YanesEntity{
 
 	@PositiveOrZero(message = "Field 'price' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price", constraint = "price >= 0"), nullable = false)
-	private long price;
+	private Long price;
 
 	@Lob
 	@Column(nullable = false, columnDefinition = "TEXT")
@@ -75,15 +73,15 @@ public class Offer extends YanesEntity{
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean wasInAccident;
+	private Boolean wasInAccident;
 
 	@PositiveOrZero(message = "Field 'mileage' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_mileage", constraint = "mileage >= 0"), nullable = false)
-	private int mileage;
+	private Integer mileage;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "vrc_id", updatable = false, check = @CheckConstraint(name = "may_empty_vrc", constraint = "offer_type = 'IN_STOCK' and vrc_id IS NOT NULL"),
@@ -92,7 +90,7 @@ public class Offer extends YanesEntity{
 
 	@PositiveOrZero(message = "Field 'body_color' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "range_body_color", constraint = "body_color >= 0 and body_color <= 128"), nullable = false)
-	private byte bodyColor;
+	private Byte bodyColor;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 25)
@@ -100,17 +98,18 @@ public class Offer extends YanesEntity{
 
 	@PositiveOrZero(message = "Field 'interior_color' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "range_interior_color", constraint = "interior_color >= 0 and interior_color <= 128"), nullable = false)
-	private byte interiorColor;
+	private Byte interiorColor;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean hasGuarantee;
+	private Boolean hasGuarantee;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean mayChange;
+	private Boolean mayChange;
 
 	@OneToMany(mappedBy = "offer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<OfferPhoto> photos;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -121,12 +120,12 @@ public class Offer extends YanesEntity{
 	private Set<Account> likedAccounts = new HashSet<>();
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return true;
 	}
 }

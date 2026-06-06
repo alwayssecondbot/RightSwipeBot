@@ -1,4 +1,4 @@
-package ru.yanes.StreapApi;
+package ru.yanes.StreamApi;
 
 import ru.yanes.SpaceShip;
 

@@ -6,7 +6,7 @@
 #database.schema=public
 
 server:
-  port: 8080
+  port: 8081
   ssl:
     enabled: false
 
@@ -33,15 +33,20 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 50
   threads:
     virtual:
       enabled: true
+  sql:
+    init:
+      mode: always
 
 logging:
   level:

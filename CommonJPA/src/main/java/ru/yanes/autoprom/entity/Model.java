@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -25,6 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @SQLDelete(sql = "UPDATE models SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 @Table(name = "models", indexes = @Index(name = "idx_models_brand_id", columnList = "brand_id"))
@@ -32,7 +34,7 @@ public class Model extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false, length = 100)
 	private String fullName;
@@ -47,9 +49,10 @@ public class Model extends YanesEntity {
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 25)
 	private Set<Generation> generations;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -57,15 +60,16 @@ public class Model extends YanesEntity {
 			joinColumns = @JoinColumn(name = "model_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
+	@BatchSize(size = 25)
 	private Set<Account> likedAccounts = new HashSet<>();
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return true;
 	}
 }

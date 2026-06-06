@@ -27,7 +27,7 @@ Date|Type|Difficulty|Priority|Task
 15.05.2026|TODO|1|5|Create full view projections for each entity (Do i really need it?)
 20.05.2026|COMPLETE|0|999|add check constraint when it's needed
 20.05.2026|TODO|3|1|Seed DB
-21.05.2026|TODO|0|2|Set BatchSize for each entity
+21.05.2026|COMPLETE|0|999|Set BatchSize for each entity
 25.05.2026|COMPLETE|0|999|Edit article shortview for main photo
 26.05.2026|COMPLETE|2|999|Add indexes
 26.05.2026|COMPLETE|1|999|Add indexes into classes

@@ -25,13 +25,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@BatchSize(size=30)
 @EqualsAndHashCode(exclude = "id",callSuper = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @SQLDelete(sql = "UPDATE generations SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 @Table(name = "generations", indexes = {
@@ -42,7 +42,7 @@ public class Generation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false, length = 100)
 	private String fullName;
@@ -57,19 +57,19 @@ public class Generation extends YanesEntity {
 
 	@PositiveOrZero(message = "Field 'year_start' must be more than 1900.")
 	@Column(check = @CheckConstraint(name = "positive_year_start", constraint = "year_start >= 1900 "))
-	private short yearStart;
+	private Short yearStart;
 
 	@PositiveOrZero(message = "Field 'year_stop' must be less than now.")
 	@Column(check = @CheckConstraint(name = "positive_year_stop", constraint = "year_stop <= EXTRACT(YEAR FROM NOW())"))
-	private short yearStop;
+	private Short yearStop;
 
 	@PositiveOrZero(message = "Field 'produced_auto' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_produced_auto", constraint = "produced_auto >= 0"))
-	private int producedAuto;
+	private Integer producedAuto;
 
 	@PositiveOrZero(message = "Field 'sold_auto' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_sold_auto", constraint = "sold_auto >= 0"))
-	private int soldAuto;
+	private Integer soldAuto;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -77,29 +77,34 @@ public class Generation extends YanesEntity {
 
 	@PositiveOrZero(message = "Field 'price_max' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price_max", constraint = "price_max >= 0"))
-	private int priceMax;
+	private Integer priceMax;
 
 	@PositiveOrZero(message = "Field 'price_min' must be positive or zero.")
 	@Column(check = @CheckConstraint(name = "positive_price_min", constraint = "price_min >= 0"))
-	private int priceMin;
+	private Integer priceMin;
 
 	@Column(nullable = false)
 	@ColumnDefault("FALSE")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 25)
 	private Set<Complectation> complectations;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 25)
 	private Set<Variation> variations;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Report> reports;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Review> reviews;
 
 	@OneToMany(mappedBy = "generation", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<GenerationPhoto> photos;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -107,6 +112,7 @@ public class Generation extends YanesEntity {
 			joinColumns = @JoinColumn(name = "generation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
+	@BatchSize(size = 50)
 	private Set<Account> likedAccounts = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -114,17 +120,18 @@ public class Generation extends YanesEntity {
 			joinColumns = @JoinColumn(name = "generation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
+	@BatchSize(size = 50)
 	private Set<Account> favouriteAccounts = new HashSet<>();
 
 
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return true;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return true;
 	}
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -24,6 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 50)
 @Table(name = "variations", indexes = {
 		@Index(name = "idx_variations_generation_id", columnList = "generation_id"),
 		@Index(name = "idx_variations_gearbox_id", columnList = "gearbox_id"),
@@ -36,7 +38,7 @@ public class Variation extends YanesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(nullable = false, length = 100)
 	private String fullName;
@@ -91,19 +93,22 @@ public class Variation extends YanesEntity {
 
 	@PositiveOrZero(message = "Field 'acl_to_100' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_acl_to_100", constraint = "acl_to_100 > 0"))
-	private byte aclTo_100;
+	private Byte aclTo_100;
 
 	@PositiveOrZero(message = "Field 'fuel_per_100' must be positive.")
 	@Column(check = @CheckConstraint(name = "positive_fuel_per_100", constraint = "fuel_per_100 > 0"))
-	private byte fuelPer_100;
+	private Byte fuelPer_100;
 
 	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Report> reports;
 
 	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Review> reviews;
 
 	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@BatchSize(size = 20)
 	private Set<Offer> offers;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -111,6 +116,7 @@ public class Variation extends YanesEntity {
 			joinColumns = @JoinColumn(name = "variation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
+	@BatchSize(size = 50)
 	private Set<Account> likedAccounts = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -118,15 +124,16 @@ public class Variation extends YanesEntity {
 			joinColumns = @JoinColumn(name = "variation_id"),
 			inverseJoinColumns = @JoinColumn(name = "account_id")
 	)
+	@BatchSize(size = 50)
 	private Set<Account> favouriteAccounts = new HashSet<>();
 
 	@Override
-	public boolean hasFullView() {
+	public Boolean hasFullView() {
 		return false;
 	}
 
 	@Override
-	public boolean hasShortView() {
+	public Boolean hasShortView() {
 		return false;
 	}
 }
@@ -161,7 +168,6 @@ record SuspBrakeProps(
 record OtherProps (
 		short maxRange,
 		WheelOrientationType wheelOrientation,
-		byte ecoClass,
-		short fuelConsumption
+		byte ecoClass
 ) {}
 

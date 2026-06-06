@@ -1,4 +1,4 @@
-package ru.yanes.StreapApi;
+package ru.yanes.StreamApi;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -17,14 +17,13 @@ public class RightSwipeRestController {
 		this.countryService = countryService;
 	}
 
-	@GetMapping
+	@GetMapping("/all")
 	public List<Country> getCountries() {
-		System.out.println(Thread.currentThread());
 		return countryService.findAll();
 	}
 
-	@GetMapping("/{id}")
-	public Country findById(String id) {
+	@GetMapping("/specific")
+	public Country findById(@RequestParam String id) {
 		return countryService.findById(id);
 	}
 
