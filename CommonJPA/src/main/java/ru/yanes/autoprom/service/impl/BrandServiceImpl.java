@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yanes.EntityNotFoundException;
 import ru.yanes.autoprom.dao.BrandDAO;
 import ru.yanes.autoprom.entity.Brand;
+import ru.yanes.autoprom.projections.BrandShortView;
 import ru.yanes.autoprom.service.BrandService;
 
 import java.util.List;
@@ -36,5 +37,17 @@ public class BrandServiceImpl implements BrandService {
 
 	@Override
 	@Transactional
-	public void deleteById(Short id) {}
+	public void deleteById(Short id) {
+		repository.deleteById(id);
+	}
+
+	@Override
+	public List<BrandShortView> findShortViewsBy(){
+		return repository.findShortViewsBy();
+	};
+
+	@Override
+	public BrandShortView findShortViewById(Short id) {
+		return repository.findShortViewById(id);
+	};
 }

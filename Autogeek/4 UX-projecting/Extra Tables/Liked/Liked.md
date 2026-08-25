@@ -1,0 +1,3 @@
+Tables, which used to store favourite [[Autogeek/4 UX-projecting/Entities/Autoprom/Model/Model|Model]], [[Autogeek/4 UX-projecting/Entities/Autoprom/Generation/Generation|Generation]], [[Autogeek/4 UX-projecting/Entities/Autoprom/Variation/Variation|Variation]] and [[Autogeek/4 UX-projecting/Entities/Users/Offer/Offer|Offer]].
+
+This tables displays at [[Autogeek/3 Data architecture/Maps/Modules/Main/Liked|Liked]] module.

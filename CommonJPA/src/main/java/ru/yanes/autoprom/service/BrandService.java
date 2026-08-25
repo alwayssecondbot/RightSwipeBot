@@ -2,6 +2,7 @@ package ru.yanes.autoprom.service;
 
 import ru.yanes.YanesService;
 import ru.yanes.autoprom.entity.Brand;
+import ru.yanes.autoprom.projections.BrandShortView;
 
 import java.util.List;
 
@@ -18,4 +19,8 @@ public interface BrandService extends YanesService<Brand,Short> {
 
 	@Override
 	void deleteById(Short id);
+
+	List<BrandShortView> findShortViewsBy();
+
+	BrandShortView findShortViewById(Short id);
 }

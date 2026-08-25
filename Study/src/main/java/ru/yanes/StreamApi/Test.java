@@ -3,6 +3,7 @@ package ru.yanes.StreamApi;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class Test {
@@ -29,6 +30,12 @@ public class Test {
                 {"D4", "E5", "D4"},
                 {"B2", "F6", "G6"}
         };
+
+        int[] d = {2,3,1};
+
+        Arrays.sort(d);
+        System.out.println(Arrays.toString(d));
+
 //        List<List<Integer>> a = new java.util.ArrayList<>(List.of());
 //        a.add(List.of(new Integer[]{1,3,4,5}));
 //        a.add(List.of(new Integer[]{11,23,51,1000}));
@@ -41,6 +48,8 @@ public class Test {
                         .mapToObj(j -> "Row - "+i+", Column: "+j))
                 .findFirst()
                 .ifPresent(System.out::println);
+
+
         boolean clear=true;
         point:
         for (int i=0; i<shelves.length;i++){
