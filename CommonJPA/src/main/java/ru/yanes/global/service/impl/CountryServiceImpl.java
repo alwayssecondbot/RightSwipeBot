@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yanes.EntityNotFoundException;
 import ru.yanes.global.dao.CountryDAO;
 import ru.yanes.global.entity.Country;
+import ru.yanes.global.projections.CountryShortView;
 import ru.yanes.global.service.CountryService;
 
 import java.util.List;
@@ -38,5 +39,16 @@ public class CountryServiceImpl implements CountryService {
 	@Transactional
 	public void deleteById(String id) {
 		repository.deleteById(id);
+	}
+
+
+	@Override
+	public List<CountryShortView> findAllShortViewsBy() {
+		return repository.findAllShortViewsBy();
+	}
+
+	@Override
+	public CountryShortView findShortViewById(String id) {
+		return repository.findShortViewByCode(id);
 	}
 }

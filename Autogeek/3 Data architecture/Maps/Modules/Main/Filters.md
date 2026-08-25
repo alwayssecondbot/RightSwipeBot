@@ -1,0 +1,130 @@
+Contains filters for the [[Autogeek/4 UX-projecting/Entity list|Entity list]].
+
+Can be showed as:
+- Separate [[Autogeek/4 UX-projecting/Entity list|entity list]] of [[Autogeek/3 Data architecture/Maps/Modules/Main/Filters|filters]].
+- Area on the screen in modules: [[Autogeek/3 Data architecture/Maps/Modules/Main/In sell|in sell]] [[Autogeek/3 Data architecture/Maps/Modules/Main/Recommendations|recommendations]], [[Autogeek/3 Data architecture/Maps/Modules/Main/Popular|popular]], [[Autogeek/3 Data architecture/Maps/Modules/Main/Liked|liked]] and [[Autogeek/3 Data architecture/Maps/Modules/Main/Favourite|favourite]].
+
+Filter types:
+- Primary:
+	- Car properties:
+		- Concern;
+		- Brand;
+		- Model;
+		- Generation;
+		- Variation;
+		- Complectation;
+	- Price range;
+	- Production years range;
+	- Drive type;
+	- Body type;
+	- Country of manufacture;
+	- Acceleration to 100;
+	- Fuel consumption per 100 km;
+- Complectation:
+	- Light properties:
+		- Light auto correction;
+		- Rain sensor;
+		- Light sensor;
+		- Daytime light;
+		- Light washers;
+		- Fog lights;
+		- Light turning correction;
+		- Light adaptationv system;
+		- High light control system;
+	- Antitheft properies:
+		- Central lock;
+		- Immobilizer;
+		- Intrusion sensor;
+	- Interior properties
+		- Sunroof;
+		- Color of interior;
+		- Wheel heaters;
+		- Wheel leather trim;
+		- Gearbox lever leather trim;
+		- Panoramic roof;
+		- Front central armrest;
+		- Folding back seat;
+		- Sport front seat;
+		- Tinted windows;
+		- Third seats row;
+	- Safety properties:
+		- Abs;
+		- Back doors lock;
+		- Armored body;
+		- Tire pressure sensor;
+		- Stabilization system;
+		- ERA-GLONASS;
+	- Multimedia properties:
+		- Aux;
+		- Android auto;
+		- Carplay;
+		- Usb;
+		- Voice control;
+		- Backseat multimedia;
+		- Lcd screen;
+		- Navigation system;
+		- Socket 12v;
+		- Socket 220v;
+		- Yandex auto;
+	- Exterior properties:
+		- Aerography;
+		- Body kits;
+		- Roof rails;
+- Offer:
+	- Owners quantity;
+	- VRC original;
+	- Offer type;
+	- Was car in accident;
+	- May car be changed;
+	- Has car a guarantee;
+- Body:
+	- Body length (mm);
+	- Body width (mm);
+	- Body heigth (mm);
+	- Ground clearanse (mm);
+	- Tank capacity (l);
+	- Minimum trunk capacity (l);
+	- Maximum trunk capacity (l);
+	- Seats quantity;
+	- Doors quantity;
+	- Curb weight (kg);
+	- Gross weight (kg);
+	- Wheel base (mm);
+	- Front track (mm);
+	- Back track (mm);
+	- Color of body;
+	- Color type;
+- Engine:
+	- Power (hp);
+	- Engine type;
+	- Torque (N\*m);
+	- Engine capacity;
+	- Fuel type;
+	- Engine power system type;
+	- Compression ratio;
+	- СО2 emission (g/km);
+	- Cylinders position;
+	- Cylingers_quantity;
+	- Valves per cylinder;
+	- Cylinders diameter;
+	- Piston stroke;
+- Gearbox:
+	- Gearbox type;
+	- Gear quantity;
+- Brake and suspencion systems:
+	- Suspension type;
+	- Brake type;
+- Other:
+	- Max range with full tank;
+	- Wheel orientation;
+	- Eco class;
+
+*Add offer filters*
+Principles:
+- if the account is [[Autogeek/3 Data architecture/Maps/Modules/Main/Autorization and Registration|verified]], user can save filters as samples.
+
+Wired with:
+- On site:
+	- [[Autogeek/3 Data architecture/Maps/Modules/Secondary/Main menu|Main menu]];
+- In telegram bot:
+	- Command "/filters".

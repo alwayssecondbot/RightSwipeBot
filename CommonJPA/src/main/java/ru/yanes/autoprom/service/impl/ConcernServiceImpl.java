@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yanes.EntityNotFoundException;
 import ru.yanes.autoprom.dao.ConcernDAO;
 import ru.yanes.autoprom.entity.Concern;
+import ru.yanes.autoprom.projections.ConcernShortView;
 import ru.yanes.autoprom.service.ConcernService;
 
 import java.util.List;
@@ -38,5 +39,15 @@ public class ConcernServiceImpl implements ConcernService {
 	@Transactional
 	public void deleteById(Short id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<ConcernShortView> findShortViewsBy() {
+		return repository.findShortViewsBy();
+	}
+
+	@Override
+	public ConcernShortView findShortViewById(String id) {
+		return repository.findShortViewById(id);
 	}
 }

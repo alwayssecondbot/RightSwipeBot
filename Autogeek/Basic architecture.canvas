@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"f5dbe6cd42d73571","type":"text","text":"balancer","x":-81,"y":-140,"width":164,"height":50,"color":"3"},
+		{"id":"a40927d480059425","type":"text","text":"constructors","x":60,"y":-340,"width":156,"height":50,"color":"5"},
+		{"id":"f10946da03b131a9","type":"text","text":"autorization","x":300,"y":-340,"width":140,"height":50,"color":"6"},
+		{"id":"cdc49f21b19647c4","type":"text","text":"Легенда элементов\n1. Turquoise - multiple nodes\n2. Sand - single nodes\n3. Violet - planned","x":-644,"y":-140,"width":387,"height":227},
+		{"id":"c29d18894d78d0b9","type":"text","text":"searchers","x":-211,"y":-340,"width":140,"height":50,"color":"5"},
+		{"id":"b8a23adae17b0aaf","type":"text","text":"DB","x":-341,"y":-520,"width":89,"height":50,"color":"3"},
+		{"id":"c9aa4283c1cd7503","type":"text","text":"creator","x":-65,"y":-525,"width":125,"height":60,"color":"3"},
+		{"id":"f060cd264d746add","type":"text","text":"Cash","x":-184,"y":-440,"width":87,"height":60,"color":"3"},
+		{"id":"c624281670a171f0","type":"text","text":"Replicas","x":-361,"y":-640,"width":129,"height":60,"color":"5"},
+		{"id":"c67ae40f4207c2ec","type":"text","text":"frontend (site/app)","x":-64,"y":-26,"width":131,"height":60,"color":"5"},
+		{"id":"1dc2a23dd3f68d2b","type":"text","text":"user","x":-44,"y":87,"width":91,"height":50}
+	],
+	"edges":[
+		{"id":"5d8c4d2462661c79","fromNode":"1dc2a23dd3f68d2b","fromSide":"top","toNode":"c67ae40f4207c2ec","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"fb85a4574a17b6df","fromNode":"c67ae40f4207c2ec","fromSide":"top","toNode":"f5dbe6cd42d73571","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"b5e427cc0b1ce6d1","fromNode":"f5dbe6cd42d73571","fromSide":"top","toNode":"c29d18894d78d0b9","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"de55ea2d7d97b203","fromNode":"f5dbe6cd42d73571","fromSide":"top","toNode":"a40927d480059425","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"d7c148f7f21c94ea","fromNode":"a40927d480059425","fromSide":"top","toNode":"c9aa4283c1cd7503","toSide":"bottom"},
+		{"id":"e0b29657fbe13e52","fromNode":"c29d18894d78d0b9","fromSide":"left","toNode":"b8a23adae17b0aaf","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"8014d339491504e2","fromNode":"c9aa4283c1cd7503","fromSide":"left","toNode":"b8a23adae17b0aaf","toSide":"right"},
+		{"id":"484408dbba506acc","fromNode":"c29d18894d78d0b9","fromSide":"top","toNode":"f060cd264d746add","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"66929d0a244ec046","fromNode":"b8a23adae17b0aaf","fromSide":"top","toNode":"c624281670a171f0","toSide":"bottom","fromEnd":"arrow"},
+		{"id":"82423816dbcf6c5d","fromNode":"f5dbe6cd42d73571","fromSide":"right","toNode":"f10946da03b131a9","toSide":"bottom","color":"6"}
+	]
+}
