@@ -12,6 +12,8 @@ public class Strings {
         int[] f = Arrays.copyOf(e,4);
         int[] g = c;
 
+//        char i = "b";
+
         if (a==b) {
             System.out.println("a = b");
         } else {

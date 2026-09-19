@@ -12,4 +12,7 @@ import java.util.List;
 public interface ConcernDAO extends JpaRepository<Concern, Short>{
 	@EntityGraph(attributePaths = {"country", "mainBrand"})
 	List<ConcernShortView> findShortViewsBy();
+
+	@EntityGraph(attributePaths = {"country", "mainBrand"})
+	ConcernShortView findShortViewById(String id);
 }

@@ -1,0 +1,15 @@
+Карта состоит из следующих основных модулей:
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/About us|About us]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Compare|Compare]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Popular|Popular]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Recommendations|Recommendations]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Filters|Filters]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Halcs|Halcs]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Liked|Liked]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/News|News]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Autorization and Registration|Autorization and Registration]];
+	- [[Autogeek/3 Data architecture/Maps/Modules/Main/About profile|About profile]];
+		- [[Autogeek/3 Data architecture/Maps/Modules/Main/In sell|In sell]];
+		- [[Autogeek/3 Data architecture/Maps/Modules/Main/Favourite|Favourite]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/Help|Help]];
+- [[Autogeek/3 Data architecture/Maps/Modules/Main/More suitable car - test|More suitable car - test]].

@@ -13,4 +13,7 @@ import java.util.List;
 public interface BrandDAO extends JpaRepository<Brand, Short> {
 	@EntityGraph(attributePaths = {"country", "concern"})
 	List<BrandShortView> findShortViewsBy();
+
+	@EntityGraph(attributePaths = {"country", "concern"})
+	BrandShortView findShortViewById(Short id);
 }

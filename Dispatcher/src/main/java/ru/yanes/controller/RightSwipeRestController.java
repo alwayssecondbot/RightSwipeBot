@@ -3,6 +3,7 @@ package ru.yanes.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yanes.global.entity.Country;
+import ru.yanes.global.projections.CountryShortView;
 import ru.yanes.global.service.impl.CountryServiceImpl;
 
 import java.util.List;
@@ -18,13 +19,13 @@ public class RightSwipeRestController {
 	}
 
 	@GetMapping("/all")
-	public List<Country> getCountries() {
-		return countryService.findAll();
+	public List<CountryShortView> getCountries() {
+		return countryService.findAllShortViewsBy();
 	}
 
 	@GetMapping("/specific")
-	public Country findById(@RequestParam String id) {
-		return countryService.findById(id);
+	public CountryShortView findById(@RequestParam String id) {
+		return countryService.findShortViewById(id);
 	}
 
 	@PostMapping

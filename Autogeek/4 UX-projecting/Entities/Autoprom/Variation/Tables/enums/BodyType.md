@@ -1,0 +1,11 @@
+Contains car body types
+
+```
+enum BodyType { CABRIOLET, COUPE, CONVERTIBLE,  
+    CROSSOVER, HATCHBACK, LIMOUSINE,  
+    LIFTBACK, MICRO, MINIVAN,  
+    MUSCLE,    OFFROAD, PICKUP,  
+    ROADSTER, SEDAN, SPORT,  
+    SUV, VAN, WAGON  
+}
+```
